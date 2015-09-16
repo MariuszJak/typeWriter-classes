@@ -47,8 +47,6 @@
 		{
 			if(Cmd.getScreenModel_())
 			{
-
-				trace("NEW ENVI YAY! change")
 				Cmd.APP_MAIN_CONTAINER.addChild(Cmd.getScreenModel_());
 				Cmd.getScreenControler()._initControler(p_stage);
 				Cmd.getScreenControler()._startControler();
