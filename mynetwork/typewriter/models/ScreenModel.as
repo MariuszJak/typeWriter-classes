@@ -30,6 +30,7 @@
 
 		//---------------------------------------------------
 		private var _timer							:Timer;
+		private var _actionTimer				:Timer;
 
 
 
@@ -163,8 +164,11 @@
 			}
 
 			_timer 										= new Timer(1000,9999);
+			_actionTimer							= new Timer(1000,9999);
+
+			_actionTimer.addEventListener(TimerEvent.TIMER, onTrackUserAction);
 			_timer.addEventListener(TimerEvent.TIMER, onShowTime);
-			_timer.start();
+			//_timer.start();
 
 			distributeData(parsedData);
 			_instructionData 						= super._parser.getInstruction();
@@ -172,6 +176,7 @@
 
 			Cmd.getAppHeaderController().updateData(super._parser.getTitle(), super._parser.getSmallTitle());
 		}
+
 
 
 
@@ -319,6 +324,46 @@
 		{
 			this.encodeTime(_timer.currentCount);
 			Cmd.getDisplayDataControler().get_displayDataView().updateTime(encodeTime(_timer.currentCount));
+		}
+
+
+
+
+		//---------------------------------------------------
+		private function onTrackUserAction(e:TimerEvent):void
+		{
+			trace(_actionTimer.currentCount)
+			if(_actionTimer.currentCount > 5)
+			{
+				_stopTimer();
+				_actionTimer.reset();
+				_actionTimer.stop();
+			}
+		}
+
+
+
+
+		//---------------------------------------------------
+		public function _resetTrackerTimer()
+		{
+			trace("reset")
+			//_actionTimer.reset();
+		}
+
+
+
+
+
+
+		//---------------------------------------------------
+		public function _startTimer()
+		{
+			if(!_timer.running)
+			{
+				_actionTimer.start();
+				_timer.start();
+			}
 		}
 
 
