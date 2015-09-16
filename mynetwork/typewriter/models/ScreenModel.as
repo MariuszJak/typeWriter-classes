@@ -173,6 +173,7 @@
 			distributeData(parsedData);
 			_instructionData 						= super._parser.getInstruction();
 			_helpData 									= super._parser.getHelp();
+			Cmd._PASS_SCORE							= super._parser.get_passScore();
 
 			Cmd.getAppHeaderController().updateData(super._parser.getTitle(), super._parser.getSmallTitle());
 		}
@@ -204,8 +205,8 @@
 			var _iterate:Number 							= 0;
 
 
-			_dataLenght 									= _data.length;
-			_oneLineDataLength 								= Cmd.getUtils().calculateLenght(super._parser.get_sWidth(),9.3);
+			_dataLenght 										= _data.length;
+			_oneLineDataLength 							= Cmd.getUtils().calculateLenght(super._parser.get_sWidth(),9.3);
 			_numberOfObjects 								= Math.round(_dataLenght / _oneLineDataLength);
 
 			for(i = 0; i < _numberOfObjects; i ++)
@@ -231,18 +232,27 @@
 			}
 
 
+
+
+
+
 			_screenContainer				       			= new screenContainer();
 			this.addChild(_screenContainer);
 
-			_screenContainer.y								= super._parser.get_sPosY();
+
+
+
+			_screenContainer.y														= super._parser.get_sPosY();
 			_screenContainer.screenContainerBody.width 		= super._parser.get_sWidth();
 			_screenContainer.screenContainerBody.height 	= super._parser.get_sHeight();
 
 			_screenContainer.maskContainerForText.width 	= super._parser.get_sWidth();
 			_screenContainer.maskContainerForText.height 	= super._parser.get_sHeight();
 
-			_screenContainerHeight 							= super._parser.get_sHeight();
-			trace(_screenContainerHeight)
+			_screenContainerHeight 												= super._parser.get_sHeight();
+
+
+
 
 
 			if(super._parser.get_dataDistr() == 1)
@@ -332,7 +342,6 @@
 		//---------------------------------------------------
 		private function onTrackUserAction(e:TimerEvent):void
 		{
-			trace(_actionTimer.currentCount)
 			if(_actionTimer.currentCount > 5)
 			{
 				_stopTimer();
@@ -347,8 +356,8 @@
 		//---------------------------------------------------
 		public function _resetTrackerTimer()
 		{
-			trace("reset")
-			//_actionTimer.reset();
+			_actionTimer.reset();
+			_actionTimer.start();
 		}
 
 
@@ -510,9 +519,9 @@
 		//---------------------------------------------------
 		public function encodeTime(_time:Number):String
 		{
-			//trace(Cmd.getTimeManagement().secondsToTimecode(_time));
 			return Cmd.getTimeManagement().secondsToTimecode(_time);
 		}
+
 
 
 
@@ -521,9 +530,7 @@
 		//---------------------------------------------------
 		public function calculateErrorMargin(_allLetters:Number, _typedWrong:Number):Number
 		{
-			//trace("100/" + (100-Math.round(_typeSuccessRate)));
 			return _typeSuccessRate = Cmd.getUtils().returnValuePercentage(_typedWrong,0,_allLetters);
-
 		}
 
 
@@ -532,9 +539,7 @@
 		//---------------------------------------------------
 		public function calculateDynamicErrorRange(_typedLetters:Number, _typedWrong:Number):Number
 		{
-			//trace(_typedLetters,_typedWrong);
 			return _typeDynamicPercentage = Math.round(Cmd.getUtils().returnValuePercentage(_typedWrong,0,_typedLetters+1));
-
 		}
 
 

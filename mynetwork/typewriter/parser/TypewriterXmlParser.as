@@ -43,6 +43,7 @@
 		private var _sPosY									:Number = 0;
 		private var i												:Number = 0;
 		private var _dataDistr							:Number = -1;
+		private var _passScore							:Number = 0;
 
 
 
@@ -96,6 +97,7 @@
 			_smallTitle								= rawXML.type_text.@smallTitle;
 			_instruction							= rawXML.type_text.@instruction;
 			_helpText									= rawXML.type_text.@help;
+			_passScore 								= rawXML.type_text.@passingScore;
 
 			if(rawXML.type_text.@setBorder == "true")
 			{
@@ -185,6 +187,14 @@
 			return _dataDistr
 		}
 
+
+
+
+		//---------------------------------------------------
+		public function get_passScore():Number
+		{
+			return _passScore;
+		}
 
 
 

@@ -54,7 +54,7 @@
 				Cmd.getDisplayDataControler()._initControler(p_stage);
 				Cmd.getDisplayDataControler()._startControler();
 
-				Cmd.getDisplayDataControler().get_displayDataView().updateViewArray(0,100,0,0);
+				Cmd.getDisplayDataControler().get_displayDataView().updateViewArray(0,0,0,0);
 				Cmd.getDisplayDataControler().get_displayDataView().updateGrossWPM(0);
 				Cmd.getDisplayDataControler().get_displayDataView().updateTime("00:00");
 

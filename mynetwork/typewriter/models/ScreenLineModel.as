@@ -311,11 +311,12 @@
 		{
 			if(this._id == Cmd.getScreenModel_().getObjectArray().length-1)
 			{
+				Cmd.getInstructionModule()._initInstruction("FINISHED")
 				Cmd.getScreenModel_()._stopTimer();
 				Cmd.getScreenControler()._removeController();
 				Cmd.TEXT_FINISHED = true;
 
-				if((100-Math.round(get_dynamicErrorRange())) > 80)
+				if((100-Math.round(get_dynamicErrorRange())) > Cmd._PASS_SCORE)
 				{
 					Cmd.get_tracker().setScore((100-Math.round(get_dynamicErrorRange())));
 					Cmd.get_tracker().setStatus("P");
