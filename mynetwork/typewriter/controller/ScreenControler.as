@@ -6,64 +6,64 @@
 	import flash.ui.Keyboard;
 	import pl.mynetwork.typewriter.models.ScreenModel;
 	import pl.mynetwork.typewriter.controller._root.Controler;
-	
-	
-	
-	
-	
+
+
+
+
+
 	public class ScreenControler extends Controler
 	{
-		
-		
-		
-		
+
+
+
+
 		//-----------------------------------------------
 		private static var p_stage:Stage;
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		//-----------------------------------------------
 		public function ScreenControler()
 		{
-			
+
 		}
-		
-		
-		
-		
+
+
+
+
 		//-----------------------------------------------
 		public function _initControler(_stage:Stage):void
 		{
 			p_stage = _stage;
 		}
-		
-		
-		
-		
+
+
+
+
 		//-----------------------------------------------
 		public function _startControler():void
 		{
 			p_stage.addEventListener(KeyboardEvent.KEY_DOWN, onSetKeybardEvent);
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 		//-----------------------------------------------
 		public function _removeController():void
 		{
 			p_stage.removeEventListener(KeyboardEvent.KEY_DOWN, onSetKeybardEvent);
 		}
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		//-----------------------------------------------
 		private function onSetKeybardEvent(e:KeyboardEvent):void
 		{
@@ -84,33 +84,47 @@
 				if(e.keyCode == Keyboard.BACKSPACE)
 				{
 					ScreenModel.UPDATE_TEXT = false;
+					setEnterVisible(false);
 					Cmd.getScreenModel_().getObjectArray()[ScreenModel._objIndex].eraseLetter(ScreenModel._objIndex);
 				}
 				if(e.keyCode != Keyboard.BACKSPACE)
 				{
+
 					ScreenModel.UPDATE_TEXT = true;
 					moveToNextLineAtEnd();
 				}
 			}
-			
 		}
-		
-		
-		
+
+
+
+
+
+		//-----------------------------------------------
+		private function setEnterVisible(_state:Boolean):void
+		{
+			if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible)
+			{
+				Cmd.getKeyboardController().getKeyboardModel().get_enter().visible = _state;
+			}
+		}
+
+
+
 		//-----------------------------------------------
 		private function moveToNextLineAtEnd()
 		{
-			if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible == true)
+			if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible)
 			{
 				Cmd.getScreenModel_().set_errorsInTyping(Cmd.getScreenModel_().get_errorsInTyping()+1);
 				nextObjectFocus();
 			}
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 		//-----------------------------------------------
 		public function getAllTypedLetters():Number
 		{
@@ -118,11 +132,11 @@
 			for(var k in Cmd.getScreenModel_().getObjectArray()) _sum += Cmd.getScreenModel_().getObjectArray()[k].dInTxt.text.length;
 			return _sum;
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 		//-----------------------------------------------
 		public function moveScreen(_instruction:String, _moveY:Number = 52.6):void
 		{
@@ -135,12 +149,12 @@
 				Cmd.getScreenModel_().moveScreenContainer(_moveY);
 			}
 		}
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		//-----------------------------------------------
 		public function nextObjectFocus():void
 		{
@@ -151,32 +165,32 @@
 			{
 				moveScreen("DOWN",Cmd.getScreenModel_().getObjectArray()[ScreenModel._objIndex].height);
 			}
-			
+
 		}
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		//-----------------------------------------------
 		public function prevObjectFocus():void
 		{
 			Cmd.getScreenModel_().onSetPrevObject(p_stage);
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 		//-----------------------------------------------
 		public function updateScreenModel():void
 		{
-			
+
 		}
-		
-		
-		
+
+
+
 		//-----------------------------------------------
 		public function _keyboardListener(_a:Number,_b:Number,_c:Number,_d:Number):void
 		{

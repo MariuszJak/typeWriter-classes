@@ -230,7 +230,6 @@
 				Cmd.getScreenModel_()._startTimer();
 
 
-
 				Cmd.getKeyboardController().getKeyboardModel().getLetterByName(dTxt.text.charAt(e.target.length));
 
 				if(dTxt.text.charAt(e.target.length-1) != e.target.text.charAt(e.target.length-1))
@@ -260,7 +259,6 @@
 
 				if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible == true)
 				{
-
 					Cmd.getScreenControler().nextObjectFocus();
 					if(_y > (_containerHeigth-(e.target.parent.height*2)))
 					{
