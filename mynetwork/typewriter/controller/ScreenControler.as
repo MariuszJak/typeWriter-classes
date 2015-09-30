@@ -89,7 +89,6 @@
 				}
 				if(e.keyCode != Keyboard.BACKSPACE)
 				{
-
 					ScreenModel.UPDATE_TEXT = true;
 					moveToNextLineAtEnd();
 				}

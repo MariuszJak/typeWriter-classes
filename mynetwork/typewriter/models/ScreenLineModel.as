@@ -219,65 +219,67 @@
 		//---------------------------------------------------
 		private function onUpdateData(e:Event):void
 		{
-			if(ScreenModel.UPDATE_TEXT)
+			if(!Cmd.TEXT_FINISHED)
 			{
-				var _errorMargin									:Number = 0;
-				var _dynamicErrorRange						:Number = 0;
-				var _progress											:Number = 0;
-				var _typingPerMinute							:Number = 0;
-
-				Cmd.getScreenModel_()._resetTrackerTimer();
-				Cmd.getScreenModel_()._startTimer();
-
-
-				Cmd.getKeyboardController().getKeyboardModel().getLetterByName(dTxt.text.charAt(e.target.length));
-
-				if(dTxt.text.charAt(e.target.length-1) != e.target.text.charAt(e.target.length-1))
+				if(ScreenModel.UPDATE_TEXT)
 				{
-					_overlayText 						= _overlayText + Cmd.getUtils().renderHtmlText(e.target.text.charAt(e.target.length-1),"_bad");
-					dInTxt.htmlText 				= _overlayText;
+					var _errorMargin									:Number = 0;
+					var _dynamicErrorRange						:Number = 0;
+					var _progress											:Number = 0;
+					var _typingPerMinute							:Number = 0;
 
-					Cmd.getScreenModel_().set_errorsInTyping(Cmd.getScreenModel_().get_errorsInTyping()+1);
-
-					_errorMargin 						= get_errorMargin();
-					_dynamicErrorRange 			= get_dynamicErrorRange();
-					_progress 							= get_progress();
-
-				}
-				else
-				{
-					_overlayText 						= _overlayText + Cmd.getUtils().renderHtmlText(e.target.text.charAt(e.target.length-1),"_good");
-					dInTxt.htmlText 				= _overlayText;
-
-					_errorMargin 						= get_errorMargin();
-					_dynamicErrorRange 			= get_dynamicErrorRange();
-					_progress 							= get_progress();
-				}
-
-				updateTypeSpeed(_typingPerMinute);
+					Cmd.getScreenModel_()._resetTrackerTimer();
+					Cmd.getScreenModel_()._startTimer();
 
 
-				if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible == true)
-				{
-					Cmd.getScreenControler().nextObjectFocus();
-					if(_y > (_containerHeigth-(e.target.parent.height*2)))
+					Cmd.getKeyboardController().getKeyboardModel().getLetterByName(dTxt.text.charAt(e.target.length));
+
+					if(dTxt.text.charAt(e.target.length-1) != e.target.text.charAt(e.target.length-1))
 					{
-						Cmd.getScreenControler().moveScreen("DOWN",e.target.parent.height);
+						_overlayText 						= _overlayText + Cmd.getUtils().renderHtmlText(e.target.text.charAt(e.target.length-1),"_bad");
+						dInTxt.htmlText 				= _overlayText;
+
+						Cmd.getScreenModel_().set_errorsInTyping(Cmd.getScreenModel_().get_errorsInTyping()+1);
+
+						_errorMargin 						= get_errorMargin();
+						_dynamicErrorRange 			= get_dynamicErrorRange();
+						_progress 							= get_progress();
+
 					}
-					pressEnter = false;
-				}
+					else
+					{
+						_overlayText 						= _overlayText + Cmd.getUtils().renderHtmlText(e.target.text.charAt(e.target.length-1),"_good");
+						dInTxt.htmlText 				= _overlayText;
 
-				if(e.target.length == this.iTxt.maxChars)
-				{
-					stopTimer();
-					pressEnter = true;
-					this._length = e.target.length + 1;
+						_errorMargin 						= get_errorMargin();
+						_dynamicErrorRange 			= get_dynamicErrorRange();
+						_progress 							= get_progress();
+					}
 
-					Cmd.getKeyboardController().getKeyboardModel()._showEnter();
+					updateTypeSpeed(_typingPerMinute);
+
+
+					if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible == true)
+					{
+						Cmd.getScreenControler().nextObjectFocus();
+						if(_y > (_containerHeigth-(e.target.parent.height*2)))
+						{
+							Cmd.getScreenControler().moveScreen("DOWN",e.target.parent.height);
+						}
+						pressEnter = false;
+					}
+
+					if(e.target.length == this.iTxt.maxChars)
+					{
+						stopTimer();
+						pressEnter = true;
+						this._length = e.target.length + 1;
+
+						Cmd.getKeyboardController().getKeyboardModel()._showEnter();
+					}
+					Cmd.getScreenControler()._keyboardListener(Cmd.getScreenModel_().get_errorsInTyping(),_dynamicErrorRange,_progress,_typingPerMinute);
 				}
-				Cmd.getScreenControler()._keyboardListener(Cmd.getScreenModel_().get_errorsInTyping(),_dynamicErrorRange,_progress,_typingPerMinute);
 			}
-
 		}
 
 

@@ -9,7 +9,7 @@
 	import flash.display.Stage;
 	import flash.display.MovieClip;
 	import caurina.transitions.Tweener;
-
+	import pl.mynetwork.typewriter.Cmd;
 
 
 
@@ -34,10 +34,11 @@
 		private var _letterUIArray			:Array = ["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"]
 		private var _letterBigUIArray		:Array = ["Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"]
 		private var _numbersUIArray			:Array = ["1","2","3","4","5","6","7","8","9","0"];
+		private var _numberSigns				:Array = ["!","@","#","$","%","^","&","*","(",")"];
 		private var _letterAllArray			:Array = [];
 		private var _letterShiftArr			:Array = [];
-		private var _numbersArr				:Array = [];
-		private var _fArray					:Array = [];
+		private var _numbersArr					:Array = [];
+		private var _fArray							:Array = [];
 
 
 
@@ -67,6 +68,174 @@
 			p_stage 												= _stage;
 			_setKeyboardButtons();
 			_setKeyboardFingers();
+			_setKeyboardESC();
+			_setTyld();
+			_setIC();
+			_setICD();
+			_setBR_L();
+			_setBR_R();
+			_setQuest();
+			_setBackSlash();
+			_setSLine();
+			_setAlts();
+			_setCTRL();
+			_setWind();
+			_setTask();
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setTask()
+		{
+			_task.visible = false;
+		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setWind()
+		{
+			_wind_l.visible = false;
+			_wind_r.visible = false;
+		}
+
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setCTRL()
+		{
+			_ctr_l.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setAlts()
+		{
+			_alt_l.visible = false;
+			_alt_r.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setSLine()
+		{
+			_sLine.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setBackSlash()
+		{
+			_backSlash.visible = false;
+		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setQuest()
+		{
+			_quest.visible = false;
+		}
+
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setBR_L()
+		{
+			_br_l.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setBR_R()
+		{
+			_br_r.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setICD()
+		{
+				_icd.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setIC()
+		{
+			_ic.visible = false;
+		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setTyld()
+		{
+			_tyld.visible = false;
+		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setKeyboardESC()
+		{
+			esc.visible = false;
+		}
+
+
+
+
+		private function setShifts(_state:Number)
+		{
+			if(_state == 1)
+			{
+				s_0.visible 											= true;
+				s_1.visible 											= true;
+
+				s_0.alpha 											= 0;
+				s_1.alpha 											= 0;
+
+				Tweener.addTween(s_0, 					{alpha:1, time:.5,transition:"easeIn"});
+				Tweener.addTween(s_1, 					{alpha:1, time:.5,transition:"easeIn"});
+			}
+			else if(_state == 0)
+			{
+				s_0.visible 											= false;
+				s_1.visible 											= false;
+
+				s_0.alpha 											= 0;
+				s_1.alpha 											= 0;
+
+				Tweener.addTween(s_0, 					{alpha:0, time:.5,transition:"easeIn"});
+				Tweener.addTween(s_1, 					{alpha:0, time:.5,transition:"easeIn"});
+			}
 		}
 
 
@@ -125,6 +294,7 @@
 				var _numbers:MovieClip 								= this["n_" + i];
 				_numbers.visible 									= false;
 				_numbers._values 									= _numbersUIArray[i];
+				_numbers._signs										= _numberSigns[i];
 				_numbersArr.push(_numbers);
 
 			}
@@ -160,25 +330,95 @@
 		{
 
 
+			//-----------------------------------------------
+			if(_name == "{")
+			{
+
+				_br_l.visible 														= true;
+				_br_r.visible 														= false;
+
+				_br_l.alpha 															= 0;
+				_br_r.alpha		 														= 0;
+
+				setShifts(1);
+
+				Tweener.addTween(_br_l, 								{alpha:1, time:.5,transition:"easeIn"});
+
+			}
+			else
+			{
+				_setBR_L();
+			}
+
+
 
 			//-----------------------------------------------
-			if(_name == ":")
+			if(_name == "}")
 			{
-				_semicolon.visible 									= true;
-				_semicolon.letter_next.alpha 						= 0;
-				Tweener.addTween(_semicolon.letter_next, 					{alpha:1, time:.5,transition:"easeIn"});
-				s_0.visible 										= true;
-				s_1.visible 										= true;
 
-				s_0.gotoAndStop(1);
-				s_1.gotoAndStop(1);
+				_br_l.visible 														= false;
+				_br_r.visible 														= true;
 
-				s_0.alpha 											= 0;
-				s_1.alpha 											= 0;
+				_br_l.alpha 															= 0;
+				_br_r.alpha		 														= 0;
 
-				Tweener.addTween(s_0._shift, 			{alpha:1, time:.5,transition:"easeIn"});
-				Tweener.addTween(s_1._shift, 			{alpha:1, time:.5,transition:"easeIn"});
+				Tweener.addTween(_br_r, 								{alpha:1, time:.5,transition:"easeIn"});
+				setShifts(1);
 			}
+			else
+			{
+				_setBR_R();
+			}
+
+
+
+
+			//-----------------------------------------------
+			if(_name == "'")
+			{
+
+				_ic.visible 														= true;
+				_ic.alpha 															= 0;
+				Tweener.addTween(_ic, 								{alpha:1, time:.5,transition:"easeIn"});
+				setShifts(0);
+			}
+			else
+			{
+				_setIC();
+			}
+
+
+
+
+			//-----------------------------------------------
+			if(_name == '"')
+			{
+				_icd.visible 														= true;
+				_icd.alpha 															= 0;
+				Tweener.addTween(_icd, 								{alpha:1, time:.5,transition:"easeIn"});
+				setShifts(1);
+			}
+			else
+			{
+				_setICD();
+			}
+
+
+
+
+			//-----------------------------------------------
+			if(_name == "˜")
+			{
+				_tyld.visible 													= true;
+				_tyld.alpha 														= 0;
+				Tweener.addTween(_tyld, 								{alpha:1, time:.5,transition:"easeIn"});
+				setShifts(0);
+			}
+			else
+			{
+				_setTyld();
+			}
+
 
 
 
@@ -189,16 +429,20 @@
 			if(_name == ";" || _name == ":")
 			{
 				_semicolon.visible 									= true;
-				_semicolon.gotoAndStop(1);
 				_semicolon.alpha 										= 0;
-				Tweener.addTween(_semicolon.letter_next, 					{alpha:1, time:.5,transition:"easeIn"});
-				_letterShiftArr[0].visible 							= false;
-				_letterShiftArr[1].visible 							= false;
+				Tweener.addTween(_semicolon, 					{alpha:1, time:.5,transition:"easeIn"});
+				if(_name == ";")
+				{
+					setShifts(0);
+				}
+				else
+				{
+					setShifts(1);
+				}
 			}
 			else
 			{
 				_semicolon.visible 									= false;
-
 			}
 
 
@@ -209,11 +453,9 @@
 			if(_name == "/")
 			{
 				_slash.visible 										= true;
-				_slash.gotoAndStop(1);
-				_slash.letter_next.alpha 							= 0;
-				Tweener.addTween(_slash.letter_next, 						{alpha:1, time:.5,transition:"easeIn"});
-				_letterShiftArr[0].visible 							= false;
-				_letterShiftArr[1].visible 							= false;
+				_slash.alpha 											= 0;
+				Tweener.addTween(_slash, 								{alpha:1, time:.5,transition:"easeIn"});
+				setShifts(0);
 			}
 			else
 			{
@@ -221,6 +463,52 @@
 
 			}
 
+
+			var baskshlashString:String = "\\";
+			//-----------------------------------------------
+			if(_name == baskshlashString.charAt(0))
+			{
+				_backSlash.visible 										= true;
+				_backSlash.alpha 											= 0;
+				Tweener.addTween(_backSlash, 								{alpha:1, time:.5,transition:"easeIn"});
+				setShifts(0);
+			}
+			else
+			{
+				_backSlash.visible 										= false;
+			}
+
+
+
+
+			if(_name == "|")
+			{
+				_sLine.visible 										= true;
+				_sLine.alpha 											= 0;
+				Tweener.addTween(_sLine, 								{alpha:1, time:.5,transition:"easeIn"});
+				setShifts(1);
+			}
+			else
+			{
+				_sLine.visible 										= false;
+			}
+
+
+
+
+
+			//-----------------------------------------------
+			if(_name == "?")
+			{
+				_quest.visible 										= true;
+				_quest.alpha 											= 0;
+				Tweener.addTween(_quest, 								{alpha:1, time:.5,transition:"easeIn"});
+				setShifts(1);
+			}
+			else
+			{
+				_quest.visible 										= false;
+			}
 
 
 			//-----------------------------------------------
@@ -242,14 +530,19 @@
 
 
 			//---------------------------------------------------
-			if(_name == ".")
+			if(_name == "." || _name == ">")
 			{
 				_dot.visible = true;
-				_dot.gotoAndStop(1);
-				_dot.letter_next.alpha = 0;
-				Tweener.addTween(_dot.letter_next, 							{alpha:1, time:.5,transition:"easeIn"});
-				_letterShiftArr[0].visible 							= false;
-				_letterShiftArr[1].visible 							= false;
+				_dot.alpha = 0;
+				Tweener.addTween(_dot, 							{alpha:1, time:.5,transition:"easeIn"});
+				if(_name == ".")
+				{
+					setShifts(0);
+				}
+				else
+				{
+					setShifts(1);
+				}
 			}
 			else
 			{
@@ -260,14 +553,19 @@
 
 
 			//---------------------------------------------------
-			if(_name == ",")
+			if(_name == "," || _name == "<")
 			{
-				_comma.visible = true;
-				_comma.gotoAndStop(1);
-				_comma.letter_next.alpha = 0;
-				Tweener.addTween(_comma.letter_next, 						{alpha:1, time:.5,transition:"easeIn"});
-				_letterShiftArr[0].visible 							= false;
-				_letterShiftArr[1].visible 							= false;
+				_comma.visible 											= true;
+				_comma.alpha 												= 0;
+				Tweener.addTween(_comma, 						{alpha:1, time:.5,transition:"easeIn"});
+				if(_name == ",")
+				{
+					setShifts(0);
+				}
+				else
+				{
+					setShifts(1);
+				}
 			}
 			else
 			{
@@ -280,14 +578,19 @@
 			//---------------------------------------------------
 			for(var h in _numbersArr)
 			{
-				if(_name == _numbersArr[h]._values)
+				if(_name == _numbersArr[h]._values || _name == _numbersArr[h]._signs)
 				{
 					_numbersArr[h].visible 							= true;
-					_numbersArr[h].gotoAndStop(1);
-					_numbersArr[h].alpha 							= 0;
-					_letterShiftArr[0].visible 						= false;
-					_letterShiftArr[1].visible 						= false;
-					Tweener.addTween(_numbersArr[h].letter_next, 			{alpha:1, time:.5, transition:"easeIn"});
+					_numbersArr[h].alpha 								= 0;
+					if(_name == _numbersArr[h]._values)
+					{
+						setShifts(0);
+					}
+					else
+					{
+						setShifts(1);
+					}
+					Tweener.addTween(_numbersArr[h], 			{alpha:1, time:.5, transition:"easeIn"});
 				}
 				else
 				{
@@ -305,8 +608,7 @@
 				{
 					_fArray[f].visible 								= true;
 					_fArray[f].alpha 								= 0;
-					_letterShiftArr[0].visible 						= false;
-					_letterShiftArr[1].visible 						= false;
+					setShifts(0);
 					Tweener.addTween(_fArray[f], 					{alpha:1, time:.5, transition:"easeIn"});
 				}
 				else
@@ -354,7 +656,6 @@
 				}
 
 			}
-
 		}
 
 
@@ -364,8 +665,8 @@
 		public function _showEnter()
 		{
 			_enter.visible = true;
-			_enter.gotoAndStop(1);
 			_enter.alpha = 0;
+			setShifts(0);
 			Tweener.addTween(_enter, {alpha:1, time:.5, transition:"easeIn"});
 		}
 
