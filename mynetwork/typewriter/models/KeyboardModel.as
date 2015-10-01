@@ -81,9 +81,44 @@
 			_setCTRL();
 			_setWind();
 			_setTask();
+
+			_setPrint();
+			_setScrll();
+			_setPbrk();
+			_setInsert();
+			_setHome();
+			_setPageUp();
+			_setPageDown();
+			_setDel();
+			_setEnd();
+			_setArrows();
+			_setMinus();
+			_setPlus();
+			_setBackSpace();
 		}
 
 
+
+		//-----------------------------------------------
+		private function _setMinus()
+		{
+			_min.visible = false;
+		}
+
+
+		//-----------------------------------------------
+		private function _setPlus()
+		{
+			_plus.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setBackSpace()
+		{
+			_backSp.visible = false;
+		}
 
 
 
@@ -110,7 +145,7 @@
 		private function _setKeyboardButtons()
 		{
 			_space.visible 											= false;
-			_dot.visible 											= false;
+			_dot.visible 												= false;
 			_comma.visible 											= false;
 			_enter.visible 											= false;
 
@@ -415,6 +450,55 @@
 
 
 
+
+			//---------------------------------------------------
+			if(_name == "+" || _name == "=")
+			{
+				_plus.visible 											= true;
+				_plus.alpha 												= 0;
+				Tweener.addTween(_plus, 						{alpha:1, time:.5,transition:"easeIn"});
+
+				if(_name == "+")
+				{
+					setShifts(1);
+				}
+				else
+				{
+					setShifts(0);
+				}
+			}
+			else
+			{
+				_plus.visible = false;
+			}
+
+
+
+
+			//---------------------------------------------------
+			if(_name == "-" || _name == "_")
+			{
+				_min.visible 											= true;
+				_min.alpha 												= 0;
+				Tweener.addTween(_min, 						{alpha:1, time:.5,transition:"easeIn"});
+
+				if(_name == "-")
+				{
+					setShifts(0);
+				}
+				else
+				{
+					setShifts(1);
+				}
+			}
+			else
+			{
+				_min.visible = false;
+			}
+
+
+
+
 			//---------------------------------------------------
 			for(var h in _numbersArr)
 			{
@@ -658,6 +742,87 @@
 			this.scaleX = this.scaleY = _scaleRatio;
 			_setPosX();
 		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setPrint()
+		{
+			_prnt.visible = false;
+		}
+
+		//-----------------------------------------------
+		private function _setScrll()
+		{
+			_scrl.visible = false;
+		}
+
+
+		//-----------------------------------------------
+		private function _setPbrk()
+		{
+			_pbrk.visible = false;
+		}
+
+
+		//-----------------------------------------------
+		private function _setInsert()
+		{
+			_inst.visible = false;
+		}
+
+
+		//-----------------------------------------------
+		private function _setHome()
+		{
+			_home.visible = false;
+		}
+
+
+		//-----------------------------------------------
+		private function _setPageUp()
+		{
+			_pup.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setPageDown()
+		{
+			_pdown.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setDel()
+		{
+			_del.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setEnd()
+		{
+			_end.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setArrows()
+		{
+			for(var t:Number = 0; this["_arr_" + t] != undefined; t++)
+			{
+				this["_arr_" + t].visible = false;
+			}
+		}
+
 
 
 
