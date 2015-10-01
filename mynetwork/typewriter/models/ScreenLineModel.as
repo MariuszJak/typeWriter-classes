@@ -29,11 +29,11 @@
 
 
 		//---------------------------------------------------
-		private var _y										:Number = 0;
+		private var _y													:Number = 0;
 		private var _containerHeigth						:Number = 0;
-		private var _length									:Number = 0;
-		private var _id										:Number = -1;
-		private var _lineLength								:Number = 0;
+		private var _length											:Number = 0;
+		private var _id													:Number = -1;
+		private var _lineLength									:Number = 0;
 
 
 
@@ -197,7 +197,7 @@
 		//---------------------------------------------------
 		public function eraseLetter(_index:Number):void
 		{
-
+			Cmd.getKeyboardController().getKeyboardModel().getLetterByName(dTxt.text.charAt(iTxt.length-1));
 			_overlayText = Cmd.getUtils().rewriteOverlayText(dTxt,dInTxt,iTxt,_overlayText);
 			dInTxt.htmlText = "" + _overlayText;
 			if(_index > 0)
@@ -230,7 +230,6 @@
 
 					Cmd.getScreenModel_()._resetTrackerTimer();
 					Cmd.getScreenModel_()._startTimer();
-
 
 					Cmd.getKeyboardController().getKeyboardModel().getLetterByName(dTxt.text.charAt(e.target.length));
 

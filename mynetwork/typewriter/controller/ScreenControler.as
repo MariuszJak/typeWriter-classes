@@ -46,7 +46,8 @@
 		//-----------------------------------------------
 		public function _startControler():void
 		{
-			p_stage.addEventListener(KeyboardEvent.KEY_DOWN, onSetKeybardEvent);
+			p_stage.addEventListener(KeyboardEvent.KEY_DOWN, 	onSetKeybardEvent);
+			p_stage.addEventListener(KeyboardEvent.KEY_UP, 		onResetKeyCode);
 		}
 
 
@@ -56,7 +57,22 @@
 		//-----------------------------------------------
 		public function _removeController():void
 		{
-			p_stage.removeEventListener(KeyboardEvent.KEY_DOWN, onSetKeybardEvent);
+			p_stage.removeEventListener(KeyboardEvent.KEY_DOWN, 	onSetKeybardEvent);
+			p_stage.removeEventListener(KeyboardEvent.KEY_UP, 		onResetKeyCode);
+		}
+
+
+
+
+
+
+		//-----------------------------------------------
+		private function onResetKeyCode(e:KeyboardEvent):void
+		{
+			if(e.keyCode == Keyboard.BACKSPACE)
+			{
+				ScreenModel.UPDATE_TEXT = true;
+			}
 		}
 
 
@@ -71,7 +87,10 @@
 			{
 				if(e.keyCode == Keyboard.ENTER)
 				{
-					nextObjectFocus();
+					if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible)
+					{
+						nextObjectFocus();
+					}
 				}
 				if(e.keyCode == Keyboard.DOWN)
 				{

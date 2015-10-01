@@ -24,6 +24,7 @@
 		private var _smallTitle								:String;
 		private var _instruction							:String;
 		private var _helpText									:String;
+		private var _movedStr									:String = "";
 
 
 
@@ -44,6 +45,7 @@
 		private var i												:Number = 0;
 		private var _dataDistr							:Number = -1;
 		private var _passScore							:Number = 0;
+		private var _sigleLineLength				:Number = 85;
 
 
 
@@ -113,13 +115,87 @@
 			for(i = 0; i < rawXML.type_text.children().length(); i ++)
 			{
 				var lineString:String = rawXML.type_text.children()[i];
-				lineArray.push(lineString);
+				if(lineString.length > _sigleLineLength)
+				{
+					var dataLength:Number = lineString.length;
+					var lineNum:Number = dataLength / _sigleLineLength;
+
+					var counter:Number = 0;
+					for(var k:Number = 0; k < lineNum; k ++)
+					{
+						var _slicedStr:String = "";
+						for(var f:Number = 0; f < _sigleLineLength; f ++)
+						{
+							if(_movedStr.length > 0)
+							{
+								_slicedStr = _movedStr;
+								_slicedStr = _slicedStr + lineString.charAt(counter);
+								_movedStr = "";
+							}
+							else
+							{
+								_slicedStr = _slicedStr + lineString.charAt(counter);
+							}
+							counter ++;
+						}
+						var _checkedStr:String = checkIfLastLetterIsSingle(_slicedStr);
+						if(_checkedStr.length > 0)
+						{
+							var _removedLastCharString:String = _slicedStr.slice(0,_slicedStr.length-_checkedStr.length);
+							lineArray.push(_removedLastCharString);
+						}
+						else
+						{
+							lineArray.push(_slicedStr);
+						}
+					}
+					if(lineNum % _sigleLineLength != 0)
+					{
+						var lastLine:Number = lineNum % _sigleLineLength;
+						var lastString:String = "";
+						for(var g:Number = 0; g < lastLine; g++)
+						{
+							lastString = lastString + lineString.charAt(counter);
+							counter ++;
+						}
+						lineArray.push(lastString);
+					}
+				}
+				else
+				{
+					lineArray.push(lineString);
+				}
+
 
 			}
 			//trace(lineArray)
 
 
 			dispatchEvent(new Event(Event.COMPLETE, true));
+		}
+
+
+
+
+
+		private function checkIfLastLetterIsSingle(_str:String):String
+		{
+			if(_str.charAt(_str.length-2) == " ")
+			{
+				_movedStr = _str.charAt(_str.length-1);
+				return _movedStr;
+			}
+			if(_str.charAt(_str.length-3) == " ")
+			{
+				_movedStr = _str.charAt(_str.length-2) + _str.charAt(_str.length-1);
+				return _movedStr;
+			}
+			if(_str.charAt(_str.length-4) == " ")
+			{
+				_movedStr = _str.charAt(_str.length-3) + _str.charAt(_str.length-2) + _str.charAt(_str.length-1);
+				return _movedStr;
+			}
+			return _movedStr;
 		}
 
 

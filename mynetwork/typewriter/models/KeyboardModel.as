@@ -31,8 +31,8 @@
 
 
 		//-----------------------------------------------
-		private var _letterUIArray			:Array = ["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"]
-		private var _letterBigUIArray		:Array = ["Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"]
+		private var _letterUIArray			:Array = ["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"];
+		private var _letterBigUIArray		:Array = ["Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"];
 		private var _numbersUIArray			:Array = ["1","2","3","4","5","6","7","8","9","0"];
 		private var _numberSigns				:Array = ["!","@","#","$","%","^","&","*","(",")"];
 		private var _letterAllArray			:Array = [];
@@ -86,167 +86,6 @@
 
 
 
-		//-----------------------------------------------
-		private function _setTask()
-		{
-			_task.visible = false;
-		}
-
-
-
-
-
-		//-----------------------------------------------
-		private function _setWind()
-		{
-			_wind_l.visible = false;
-			_wind_r.visible = false;
-		}
-
-
-
-
-
-
-		//-----------------------------------------------
-		private function _setCTRL()
-		{
-			_ctr_l.visible = false;
-		}
-
-
-
-
-		//-----------------------------------------------
-		private function _setAlts()
-		{
-			_alt_l.visible = false;
-			_alt_r.visible = false;
-		}
-
-
-
-		//-----------------------------------------------
-		private function _setSLine()
-		{
-			_sLine.visible = false;
-		}
-
-
-
-
-		//-----------------------------------------------
-		private function _setBackSlash()
-		{
-			_backSlash.visible = false;
-		}
-
-
-
-
-
-		//-----------------------------------------------
-		private function _setQuest()
-		{
-			_quest.visible = false;
-		}
-
-
-
-
-
-
-		//-----------------------------------------------
-		private function _setBR_L()
-		{
-			_br_l.visible = false;
-		}
-
-
-
-
-		//-----------------------------------------------
-		private function _setBR_R()
-		{
-			_br_r.visible = false;
-		}
-
-
-
-
-		//-----------------------------------------------
-		private function _setICD()
-		{
-				_icd.visible = false;
-		}
-
-
-
-
-		//-----------------------------------------------
-		private function _setIC()
-		{
-			_ic.visible = false;
-		}
-
-
-
-
-
-		//-----------------------------------------------
-		private function _setTyld()
-		{
-			_tyld.visible = false;
-		}
-
-
-
-
-
-		//-----------------------------------------------
-		private function _setKeyboardESC()
-		{
-			esc.visible = false;
-		}
-
-
-
-
-		private function setShifts(_state:Number)
-		{
-			if(_state == 1)
-			{
-				s_0.visible 											= true;
-				s_1.visible 											= true;
-
-				s_0.alpha 											= 0;
-				s_1.alpha 											= 0;
-
-				Tweener.addTween(s_0, 					{alpha:1, time:.5,transition:"easeIn"});
-				Tweener.addTween(s_1, 					{alpha:1, time:.5,transition:"easeIn"});
-			}
-			else if(_state == 0)
-			{
-				s_0.visible 											= false;
-				s_1.visible 											= false;
-
-				s_0.alpha 											= 0;
-				s_1.alpha 											= 0;
-
-				Tweener.addTween(s_0, 					{alpha:0, time:.5,transition:"easeIn"});
-				Tweener.addTween(s_1, 					{alpha:0, time:.5,transition:"easeIn"});
-			}
-		}
-
-
-
-
-
-		//-----------------------------------------------
-		private function _setKeyboardFingers()
-		{
-			_kf.visible = false;
-		}
 
 
 
@@ -307,6 +146,7 @@
 				var _letterButton:MovieClip 						= this["l_" + i];
 				_letterButton._letter 								= _letterUIArray[i];
 				_letterButton._bigLetter 							= _letterBigUIArray[i];
+				_letterButton._taken									= 0;
 				_letterButton.visible 								= false;
 				_letterAllArray.push(_letterButton);
 			}
@@ -617,6 +457,131 @@
 				}
 			}
 
+			if(_name == "ł" || _name == "ó" || _name == "ż" || _name == "ę" || _name == "ą" || _name == "ś" || _name == "ź" || _name == "ć")
+			{
+				trace(_name);
+				var searchForLetter:String = "";
+				if(_name == "ł")
+				{
+					searchForLetter = "l";
+				}
+				if(_name == "ó")
+				{
+					searchForLetter = "o";
+				}
+				if(_name == "ż")
+				{
+					searchForLetter = "z";
+				}
+				if(_name == "ę")
+				{
+					searchForLetter = "e";
+				}
+				if(_name == "ą")
+				{
+					searchForLetter = "a";
+				}
+				if(_name == "ś")
+				{
+					searchForLetter = "s";
+				}
+				if(_name == "ź")
+				{
+					searchForLetter = "x";
+				}
+				if(_name == "ć")
+				{
+					searchForLetter = "c";
+				}
+				for(var p in _letterAllArray)
+				{
+
+					if(searchForLetter == _letterAllArray[p]._letter)
+					{
+						_letterAllArray[p].visible 						= true;
+						_letterAllArray[p].alpha 							= 0;
+						_letterAllArray[p]._taken 						= 1;
+						Tweener.addTween(_letterAllArray[p], 		{alpha:1, time:.5,transition:"easeIn"});
+						setShifts(0);
+					}
+					else
+					{
+						_letterAllArray[p]._taken 						= 0;
+					}
+				}
+				_alt_l.visible = true;
+				_alt_r.visible = true;
+
+			}
+			else
+			{
+				_setAlts();
+				for(var r in _letterAllArray)
+				{
+					_letterAllArray[r]._taken = 0;
+				}
+			}
+
+
+
+
+
+			if(_name == "Ł" || _name == "Ó" || _name == "Ż" || _name == "Ę" || _name == "Ą" || _name == "Ś" || _name == "Ź" || _name == "Ć")
+			{
+				var searchForBigLetter:String = "";
+				if(_name == "Ł")
+				{
+					searchForBigLetter = "L";
+				}
+				if(_name == "Ó")
+				{
+					searchForBigLetter = "O";
+				}
+				if(_name == "Ż")
+				{
+					searchForBigLetter = "Z";
+				}
+				if(_name == "Ę")
+				{
+					searchForBigLetter = "E";
+				}
+				if(_name == "Ą")
+				{
+					searchForBigLetter = "A";
+				}
+				if(_name == "Ś")
+				{
+					searchForBigLetter = "S";
+				}
+				if(_name == "Ź")
+				{
+					searchForBigLetter = "X";
+				}
+				if(_name == "Ć")
+				{
+					searchForBigLetter = "C";
+				}
+				for(var q in _letterAllArray)
+				{
+
+					if(searchForBigLetter == _letterAllArray[q]._bigLetter)
+					{
+						_letterAllArray[q].visible 						= true;
+						_letterAllArray[q].alpha 							= 0;
+						_letterAllArray[q]._taken 						= 1;
+						Tweener.addTween(_letterAllArray[q], 		{alpha:1, time:.5,transition:"easeIn"});
+						setShifts(1);
+					}
+					else
+					{
+						_letterAllArray[q]._taken 						= 0;
+					}
+				}
+				_alt_l.visible = true;
+				_alt_r.visible = true;
+
+			}
+
 
 
 
@@ -626,35 +591,25 @@
 				if(_name == _letterAllArray[k]._letter)
 				{
 					_letterAllArray[k].visible 						= true;
-					_letterAllArray[k].gotoAndStop(1);
-					_letterAllArray[k].alpha 						= 0;
+					_letterAllArray[k].alpha 							= 0;
 					Tweener.addTween(_letterAllArray[k], 		{alpha:1, time:.5,transition:"easeIn"});
-					_letterShiftArr[0].visible 						= false;
-					_letterShiftArr[1].visible 						= false;
+					setShifts(0);
 				}
 				else
 				{
-					_letterAllArray[k].visible 						= false;
-
+					if(_letterAllArray[k]._taken == 0)
+					{
+						_letterAllArray[k].visible 						= false;
+					}
 				}
 				if(_name == _letterAllArray[k]._bigLetter)
 				{
 					_letterAllArray[k].visible 						= true;
-					_letterAllArray[k].gotoAndStop(1);
-
-					_letterShiftArr[0].visible 						= true;
-					_letterShiftArr[1].visible 						= true;
 
 					_letterAllArray[k].alpha 						= 0;
-
-					_letterShiftArr[0].alpha 						= 0;
-					_letterShiftArr[1].alpha 						= 0;
-
 					Tweener.addTween(_letterAllArray[k], 			{alpha:1, time:.5,transition:"easeIn"});
-					Tweener.addTween(_letterShiftArr[0], 			{alpha:1, time:.5,transition:"easeIn"});
-					Tweener.addTween(_letterShiftArr[1], 			{alpha:1, time:.5,transition:"easeIn"});
+					setShifts(1);
 				}
-
 			}
 		}
 
@@ -702,6 +657,173 @@
 
 			this.scaleX = this.scaleY = _scaleRatio;
 			_setPosX();
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function setShifts(_state:Number)
+		{
+			if(_state == 1)
+			{
+				s_0.visible 											= true;
+				s_1.visible 											= true;
+
+				s_0.alpha 											= 0;
+				s_1.alpha 											= 0;
+
+				Tweener.addTween(s_0, 					{alpha:1, time:.5,transition:"easeIn"});
+				Tweener.addTween(s_1, 					{alpha:1, time:.5,transition:"easeIn"});
+			}
+			else if(_state == 0)
+			{
+				s_0.visible 											= false;
+				s_1.visible 											= false;
+
+				s_0.alpha 											= 0;
+				s_1.alpha 											= 0;
+
+				Tweener.addTween(s_0, 					{alpha:0, time:.5,transition:"easeIn"});
+				Tweener.addTween(s_1, 					{alpha:0, time:.5,transition:"easeIn"});
+			}
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setKeyboardFingers()
+		{
+			_kf.visible = false;
+		}
+
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setTask()
+		{
+			_task.visible = false;
+		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setWind()
+		{
+			_wind_l.visible = false;
+			_wind_r.visible = false;
+		}
+
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setCTRL()
+		{
+			_ctr_l.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setAlts()
+		{
+			_alt_l.visible = false;
+			_alt_r.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setSLine()
+		{
+			_sLine.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setBackSlash()
+		{
+			_backSlash.visible = false;
+		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setQuest()
+		{
+			_quest.visible = false;
+		}
+
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setBR_L()
+		{
+			_br_l.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setBR_R()
+		{
+			_br_r.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setICD()
+		{
+				_icd.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setIC()
+		{
+			_ic.visible = false;
+		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setTyld()
+		{
+			_tyld.visible = false;
+		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setKeyboardESC()
+		{
+			esc.visible = false;
 		}
 
 
