@@ -34,6 +34,7 @@
 		private var _length											:Number = 0;
 		private var _id													:Number = -1;
 		private var _lineLength									:Number = 0;
+		private var _speedTyping								:Number = 0;
 
 
 
@@ -77,7 +78,7 @@
 
 
 		//---------------------------------------------------
-		public function setInlineText(_text:String)
+		public function setInlineText(_text:String):String
 		{
 			var inpText:String = "";
 			if(_text.charAt(0) == " ")
@@ -91,7 +92,7 @@
 
 			this._inlineText = inpText;
 			updateText(this._inlineText);
-
+			return inpText;
 		}
 
 
@@ -310,10 +311,12 @@
 		{
 			if(this._id == Cmd.getScreenModel_().getObjectArray().length-1)
 			{
-				Cmd.getInstructionModule()._initInstruction("FINISHED")
+				Cmd.getInstructionModule()._initInstruction(gatherUserData());
 				Cmd.getScreenModel_()._stopTimer();
 				Cmd.getScreenControler()._removeController();
 				Cmd.TEXT_FINISHED = true;
+
+
 
 				if((100-Math.round(get_dynamicErrorRange())) > Cmd._PASS_SCORE)
 				{
@@ -328,6 +331,23 @@
 					Cmd.get_tracker().putParams();
 				}
 			}
+		}
+
+
+
+
+		//---------------------------------------------------
+		private function gatherUserData():Array
+		{
+			var _userDataArray:Array 					= [];
+
+			var _userScore:String 						= "Twój wynik: " + String(100-Math.round(get_dynamicErrorRange()));
+			var _userMistakes:String 					= "Ilość błędów: " + String(Cmd.getScreenModel_().get_errorsInTyping());
+			var _userSpeed:String							= "Szybkość pisania: " + String(_speedTyping);
+			var _finishMessage:String 				= "Kilkaset rubli złożone przez doktora Tomasza umożliwiły jego bratu wyjazd za granicę. Parę dni Wiktor spędził w domu wśród płaczu i perswazji familijnych. Kiedy wszakże nadeszła chwila odpowiednia, ruszył w świat. Był to wczesny ranek w lutym. Jednokonna dorożka z woźnicą znużonym i zagrzebanym w kożuch wlokła się ulicami. W cieniu nastawionej budy siedział Wiktor z żoną. W nogach mieściły się dzieci, którym ta ostentacyjna jazda sprawiała niewymowną uciechę. Chudy, zbiedzony koń wyrobnik ślizgał się na obmarzłych kamieniach, utykał, gdy zerwane nogi trafiały w jamy zadęte przez zaspy śniegowe i wlókł przekleństwo swego żywota, budę na kołach, ulicą Żelazną w kierunku wolskich rogatek. Z przecznic, od Wisły, dął wicher i z furią miotał się na wszystko.";
+
+			_userDataArray.push(_userScore,_userMistakes,_userSpeed,_finishMessage);
+			return _userDataArray;
 		}
 
 
@@ -372,9 +392,11 @@
 
 			if(Cmd.getScreenModel_().get_typeSpeedTrsh() > Cmd.SPEED_TRSH)
 			{
+
 				_typingPerMinute = Cmd.getScreenModel_().calculateTypingSpeedPerMinute(Cmd.getScreenModel_().get_typedAllLetters(),Cmd.getScreenModel_().get_timerCurrentCount());
 				Cmd.getDisplayDataControler().get_displayDataView().updateGrossWPM(_typingPerMinute);
 				Cmd.getScreenModel_().set_typeSpeedTrsh(0);
+				_speedTyping = _typingPerMinute;
 			}
 		}
 	}

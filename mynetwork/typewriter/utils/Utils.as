@@ -7,7 +7,13 @@
 
 
 		//---------------------------------------------------
-		private var i							:Number = 0;
+		private var i									:Number = 0;
+
+
+
+
+		//---------------------------------------------------
+		private var _spaceBtn					:String = " ";
 
 
 
@@ -47,8 +53,14 @@
 			}
 			if(_state == "_bad")
 			{
-				outputString = '<font color="#ff0000">' + _text + '</font>'
-
+				if(_text == _spaceBtn)
+				{
+					outputString = '<font color="#ff0000">' + "_" + '</font>'
+				}
+				else
+				{
+					outputString = '<font color="#ff0000">' + _text + '</font>'
+				}
 			}
 			return outputString;
 		}

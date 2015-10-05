@@ -308,6 +308,7 @@
 			for(i = 0; i < super._parser.get_lineArray().length; i ++)
 			{
 				var _objectInLine:MovieClip 					= new mainInputText();
+				var _passedText:String = "";
 				objectArr.push(_objectInLine);
 
 				_objectInLine.y = posY;
@@ -318,8 +319,8 @@
 				_objectInLine._setY(posY);
 				_objectInLine._setContainerHeight(_screenContainer.screenContainerBody.height);
 				_objectInLine.addListenerToTextfields();
-				_objectInLine._setMaxChar(super._parser.get_lineArray()[i].length);
-				_objectInLine.setInlineText(super._parser.get_lineArray()[i]);
+				_passedText = _objectInLine.setInlineText(super._parser.get_lineArray()[i]);
+				_objectInLine._setMaxChar(_passedText.length);
 				_objectInLine._setWidth(super._parser.get_sWidth());
 				posY = posY + _objectInLine.height;
 			}

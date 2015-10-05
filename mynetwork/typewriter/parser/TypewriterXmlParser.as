@@ -142,11 +142,19 @@
 						if(_checkedStr.length > 0)
 						{
 							var _removedLastCharString:String = _slicedStr.slice(0,_slicedStr.length-_checkedStr.length);
-							lineArray.push(_removedLastCharString);
+							if(_removedLastCharString.length > 0)
+							{
+								lineArray.push(_removedLastCharString);
+							}
+
 						}
 						else
 						{
-							lineArray.push(_slicedStr);
+							if(_slicedStr.length > 0)
+							{
+								lineArray.push(_slicedStr);
+							}
+
 						}
 					}
 					if(lineNum % _sigleLineLength != 0)
@@ -158,17 +166,18 @@
 							lastString = lastString + lineString.charAt(counter);
 							counter ++;
 						}
-						lineArray.push(lastString);
+						if(lastString.length > 0)
+						{
+							lineArray.push(lastString);
+						}
+
 					}
 				}
 				else
 				{
 					lineArray.push(lineString);
 				}
-
-
 			}
-			//trace(lineArray)
 
 
 			dispatchEvent(new Event(Event.COMPLETE, true));

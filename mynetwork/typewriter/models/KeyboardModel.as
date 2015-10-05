@@ -81,7 +81,6 @@
 			_setCTRL();
 			_setWind();
 			_setTask();
-
 			_setPrint();
 			_setScrll();
 			_setPbrk();
@@ -95,30 +94,16 @@
 			_setMinus();
 			_setPlus();
 			_setBackSpace();
+			_setNumLock();
+			_setSecSlash();
+			_setStar();
+			_setLeftDot();
+			_set_s_plus();
+			_set_s_enter();
+			_set_s_del();
+			_setNumpadNumbers();
 		}
 
-
-
-		//-----------------------------------------------
-		private function _setMinus()
-		{
-			_min.visible = false;
-		}
-
-
-		//-----------------------------------------------
-		private function _setPlus()
-		{
-			_plus.visible = false;
-		}
-
-
-
-		//-----------------------------------------------
-		private function _setBackSpace()
-		{
-			_backSp.visible = false;
-		}
 
 
 
@@ -206,7 +191,7 @@
 
 
 			//-----------------------------------------------
-			if(_name == "{")
+			if(_name == "{" || _name == "[")
 			{
 
 				_br_l.visible 														= true;
@@ -215,7 +200,14 @@
 				_br_l.alpha 															= 0;
 				_br_r.alpha		 														= 0;
 
-				setShifts(1);
+				if(_name == "{")
+				{
+					setShifts(1);
+				}
+				else
+				{
+					setShifts(0);
+				}
 
 				Tweener.addTween(_br_l, 								{alpha:1, time:.5,transition:"easeIn"});
 
@@ -228,7 +220,7 @@
 
 
 			//-----------------------------------------------
-			if(_name == "}")
+			if(_name == "}"  || _name == "]")
 			{
 
 				_br_l.visible 														= false;
@@ -238,7 +230,14 @@
 				_br_r.alpha		 														= 0;
 
 				Tweener.addTween(_br_r, 								{alpha:1, time:.5,transition:"easeIn"});
-				setShifts(1);
+				if(_name == "}")
+				{
+					setShifts(1);
+				}
+				else
+				{
+					setShifts(0);
+				}
 			}
 			else
 			{
@@ -743,6 +742,104 @@
 			_setPosX();
 		}
 
+
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setNumpadNumbers()
+		{
+			for(var _n:Number = 0; this["_n_s_" + _n] != undefined; _n ++)
+			{
+				this["_n_s_" + _n].visible = false;
+			}
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setNumLock()
+		{
+			_numLock.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _setSecSlash()
+		{
+			_secSlash.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setStar()
+		{
+			_star.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setLeftDot()
+		{
+			_leftDot.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _set_s_plus()
+		{
+			_s_plus.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _set_s_enter()
+		{
+			_s_enter.visible = false;
+		}
+
+
+
+
+		//-----------------------------------------------
+		private function _set_s_del()
+		{
+			_s_del.visible = false;
+		}
+
+
+
+
+
+		//-----------------------------------------------
+		private function _setMinus()
+		{
+			_min.visible = false;
+		}
+
+
+		//-----------------------------------------------
+		private function _setPlus()
+		{
+			_plus.visible = false;
+		}
+
+
+
+		//-----------------------------------------------
+		private function _setBackSpace()
+		{
+			_backSp.visible = false;
+		}
 
 
 
