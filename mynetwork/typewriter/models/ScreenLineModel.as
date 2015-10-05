@@ -344,10 +344,83 @@
 			var _userScore:String 						= "Twój wynik: " + String(100-Math.round(get_dynamicErrorRange()));
 			var _userMistakes:String 					= "Ilość błędów: " + String(Cmd.getScreenModel_().get_errorsInTyping());
 			var _userSpeed:String							= "Szybkość pisania: " + String(_speedTyping);
-			var _finishMessage:String 				= "Kilkaset rubli złożone przez doktora Tomasza umożliwiły jego bratu wyjazd za granicę. Parę dni Wiktor spędził w domu wśród płaczu i perswazji familijnych. Kiedy wszakże nadeszła chwila odpowiednia, ruszył w świat. Był to wczesny ranek w lutym. Jednokonna dorożka z woźnicą znużonym i zagrzebanym w kożuch wlokła się ulicami. W cieniu nastawionej budy siedział Wiktor z żoną. W nogach mieściły się dzieci, którym ta ostentacyjna jazda sprawiała niewymowną uciechę. Chudy, zbiedzony koń wyrobnik ślizgał się na obmarzłych kamieniach, utykał, gdy zerwane nogi trafiały w jamy zadęte przez zaspy śniegowe i wlókł przekleństwo swego żywota, budę na kołach, ulicą Żelazną w kierunku wolskich rogatek. Z przecznic, od Wisły, dął wicher i z furią miotał się na wszystko.";
+			var _finishMessage:String 				= "";
+
+
+			_finishMessage = "\n" + "Ocena szybkości: " + getSpeedCriteriaDescription(100-Math.round(get_dynamicErrorRange())) + "\n" + "\n" +
+			"Ocena dokładności: " + getCorrectnessCriteriaDescription(100-Math.round(get_dynamicErrorRange()));
+
 
 			_userDataArray.push(_userScore,_userMistakes,_userSpeed,_finishMessage);
 			return _userDataArray;
+		}
+
+
+
+
+
+		//---------------------------------------------------
+		private function getSpeedCriteriaDescription(_score:Number):String
+		{
+			var speedCriteria:Array = [];
+			speedCriteria[0] = [-1, 60, 'żółwia, czeka Cię jeszcze sporo pracy. W tym tempie możesz przegonić tylko ślimaka.'];
+			speedCriteria[1] = [60, 120, 'bardzo wolna, postaraj się zwiększyć tempo. Założę się, że stać Cię na więcej.'];
+			speedCriteria[2] = [120, 180, 'wolna. Nie przejmuj się jednak, lokomotywa w wierszu Tuwima też na początku była nieco ospała.'];
+			speedCriteria[3] = [180, 240, 'średnia. Założę się, że nie jest to ocena na miarę Twoich ambicji. Średniactwo jest raczej nijakie.'];
+			speedCriteria[4] = [240, 280, 'dobra. Może warto jeszcze trochę potrenować i do oceny „dobra” dodać przymiotnik „bardzo”.'];
+			speedCriteria[5] = [280, 350, 'bardzo dobra. Gratulacje, piątka to wspaniała ocena. Może jednak chcesz zamienić ją na szóstkę? '];
+			speedCriteria[6] = [350, 400, 'znakomita. Już tylko krok dzieli Cię od tytułu Mistrza.'];
+			speedCriteria[7] = [400, 100000, 'mistrzowska. Nawet struś pędziwiatr miałby kłopoty z osiągnięciem Twojego wyniku.'];
+
+			for(var k in speedCriteria)
+			{
+				var splitArray:Array = [];
+				for(var t in speedCriteria[k])
+				{
+					splitArray.push(speedCriteria[k][t]);
+				}
+				trace(splitArray[0],splitArray[1])
+
+				if(_score > splitArray[0] && _score < splitArray[1])
+				{
+					return splitArray[2];
+				}
+			}
+			return "";
+		}
+		
+
+
+
+
+		//---------------------------------------------------
+		private function getCorrectnessCriteriaDescription(_score:Number):String
+		{
+			var correctnessCriteria:Array = [];
+			correctnessCriteria[0] = [-1, 70, 'fatalna, przed Tobą jeszcze sporo pracy. Pamiętaj jednak, że nie od razu Rzym zbudowano.'];
+			correctnessCriteria[1] = [70, 80, 'bardzo zła. Chyba zgodzisz się ze mną, że stać Cię na więcej? Pamiętaj, trening czyni mistrza!'];
+			correctnessCriteria[2] = [80, 90, 'niedostateczna, musisz jeszcze sporo poćwiczyć. Pamiętaj, bez pracy nie ma kołaczy.'];
+			correctnessCriteria[3] = [90, 93, 'mierna. Nie jest wprawdzie tragicznie, ale do doskonałości jeszcze sporo Ci brakuje.'];
+			correctnessCriteria[4] = [93, 96, 'dostateczna. Założę się, że nie jest to ocena na miarę Twoich ambicji. Spróbuj poprawić swój wynik.'];
+			correctnessCriteria[5] = [96, 98, 'dość dobra, trenuj jednak by „dość” przemienić w „bardzo”.'];
+			correctnessCriteria[6] = [98, 99.5, 'bardzo dobra. Już tylko krok dzieli Cię od tytułu Mistrza.'];
+			correctnessCriteria[7] = [99.5, 101, 'znakomita. Brawo Mistrzu! Wynik jaki udało Ci się osiągnąć jest doprawdy imponujący.'];
+
+			for(var k in correctnessCriteria)
+			{
+				var splitArray:Array = [];
+				for(var t in correctnessCriteria[k])
+				{
+					splitArray.push(correctnessCriteria[k][t]);
+				}
+				trace(splitArray[0],splitArray[1])
+
+				if(_score > splitArray[0] && _score < splitArray[1])
+				{
+					return splitArray[2];
+				}
+			}
+			return "";
 		}
 
 

@@ -51,7 +51,6 @@
 			lessonTitleTF.text 			= "" + _title;
 			smallTitleTF.text 			= "" + _smallTitle;
 
-			Cmd.getScreenControler().
 		}
 	}
 }
