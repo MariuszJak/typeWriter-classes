@@ -32,7 +32,6 @@
 		//---------------------------------------------------
 		public function calculateLenght(_width:Number, _singleLetter:Number):Number
 		{
-
 			return Math.round(_width/_singleLetter);
 		}
 

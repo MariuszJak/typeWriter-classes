@@ -111,7 +111,7 @@
 
 
 		//-----------------------------------------------
-		public function toggleKeyboardFingers()
+		public function toggleKeyboardFingers():Number
 		{
 			if(!_kf.visible)
 			{
@@ -121,6 +121,7 @@
 			{
 				_kf.visible = false;
 			}
+			return 0;
 		}
 
 

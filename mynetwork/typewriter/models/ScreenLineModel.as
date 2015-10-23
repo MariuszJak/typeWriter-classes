@@ -259,6 +259,7 @@
 					updateTypeSpeed(_typingPerMinute);
 
 
+
 					if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible == true)
 					{
 						Cmd.getScreenControler().nextObjectFocus();
@@ -347,7 +348,7 @@
 			var _finishMessage:String 				= "";
 
 
-			_finishMessage = "\n" + "Ocena szybkości: " + getSpeedCriteriaDescription(100-Math.round(get_dynamicErrorRange())) + "\n" + "\n" +
+			_finishMessage = "\n" + "Ocena szybkości: " + getSpeedCriteriaDescription(_speedTyping) + "\n" + "\n" +
 			"Ocena dokładności: " + getCorrectnessCriteriaDescription(100-Math.round(get_dynamicErrorRange()));
 
 
@@ -362,6 +363,7 @@
 		//---------------------------------------------------
 		private function getSpeedCriteriaDescription(_score:Number):String
 		{
+			trace("_score: " + _score);
 			var speedCriteria:Array = [];
 			speedCriteria[0] = [-1, 60, 'żółwia, czeka Cię jeszcze sporo pracy. W tym tempie możesz przegonić tylko ślimaka.'];
 			speedCriteria[1] = [60, 120, 'bardzo wolna, postaraj się zwiększyć tempo. Założę się, że stać Cię na więcej.'];
@@ -388,7 +390,7 @@
 			}
 			return "";
 		}
-		
+
 
 
 
@@ -470,6 +472,7 @@
 				Cmd.getDisplayDataControler().get_displayDataView().updateGrossWPM(_typingPerMinute);
 				Cmd.getScreenModel_().set_typeSpeedTrsh(0);
 				_speedTyping = _typingPerMinute;
+				trace("_speedTyping: " + _speedTyping);
 			}
 		}
 	}

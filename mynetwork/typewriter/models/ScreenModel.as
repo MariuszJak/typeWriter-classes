@@ -563,8 +563,16 @@
 		public function calculateTypingSpeedPerMinute(_typedLetters:Number, _actualTime:Number):Number
 		{
 			//trace("_typedLetters: " + _typedLetters/5,Cmd.getUtils().returnValuePercentage(_actualTime,0,60)/10);
-			return (Math.round((_typedLetters) / (Cmd.getUtils().returnValuePercentage(_actualTime,0,60)/10))*60)/5;
+			var calculatedTime:Number = (Math.round((_typedLetters) / (Cmd.getUtils().returnValuePercentage(_actualTime,0,60)/10))*60)/5;
+			if(calculatedTime > 1000000)
+			{
+				return 0
+			}
+			else
+			{
+				return calculatedTime
+			}
+			return
 		}
-
 	}
 }

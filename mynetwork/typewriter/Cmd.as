@@ -118,8 +118,8 @@
 
 		//-----------------------------------------------
 		public static var UI_OBJECT_LIST						= ["PROGRESS","TIME","DYNAMIC_ERROR","ERROR","SPEED"]
-		public static var UI_POS_X								= [100,150,250,340,440];
-		public static var UI_POS_Y								= [43,9,9,9,9];
+		public static var UI_POS_X									= [100,150,250,340,440];
+		public static var UI_POS_Y									= [43,9,9,9,9];
 
 
 
@@ -149,13 +149,13 @@
 		//-----------------------------------------------
 		public static function _initApplication(_stage:Stage, _loadPath:String):void
 		{
-			XML_PATH 												= _loadPath;
-			p_stage 												= _stage;
+			XML_PATH 																		= _loadPath;
+			p_stage 																		= _stage;
 			var trackerLinkageClass:Class 							= _stage.loaderInfo.applicationDomain.getDefinition("trackerStandalone") as Class;
-			trackerComponent 										= new trackerLinkageClass() as ITrackerMovieStandalone;
+			trackerComponent 														= new trackerLinkageClass() as ITrackerMovieStandalone;
 			_stage.addChild(MovieClip(trackerComponent));
-			MovieClip(trackerComponent).visible 					= false;
-			tracker 												= ITracker(trackerComponent.getTracker());
+			MovieClip(trackerComponent).visible 				= false;
+			tracker 																		= ITracker(trackerComponent.getTracker());
 			gameCommunication = new GameCommunication(tracker);
 			gameCommunication.addEventListener(ComEvent.INIT, 		onCommunicationInit);
 			gameCommunication.addEventListener(ComEvent.FAIL, 		onCommunicationFail);
@@ -181,21 +181,21 @@
 		//-----------------------------------------------
 		private static function onCommunicationInit(event:ComEvent):void
 		{
-			_screenModel_ 					= new screenModule();
-			_utils 							= new Utils;
-			_typeParser 					= new TypewriterXmlParser();
-			_screenModel 					= new ScreenModel();
-			_screenControler 				= new ScreenControler();
-			_timeManagement 				= new TimeManagement();
+			_screenModel_ 						= new screenModule();
+			_utils 										= new Utils;
+			_typeParser 							= new TypewriterXmlParser();
+			_screenModel 							= new ScreenModel();
+			_screenControler 					= new ScreenControler();
+			_timeManagement 					= new TimeManagement();
 			_displayDataControler			= new DisplayDataControler;
 			_keyboardController				= new KeyboardController();
-			_headerController				= new HeaderController();
-			_headerMC 						= new app_header();
-			_instructionMc					= new instructionModule();
+			_headerController					= new HeaderController();
+			_headerMC 								= new app_header();
+			_instructionMc						= new instructionModule();
 
 			APP_MAIN_CONTAINER 				= new MovieClip();
 			p_stage.addChild(APP_MAIN_CONTAINER);
-			_appConroler 					= new AppControler(p_stage);
+			_appConroler 							= new AppControler(p_stage);
 			_appConroler._initApp();
 		}
 
