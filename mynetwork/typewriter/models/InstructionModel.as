@@ -50,6 +50,22 @@
 
 
 
+
+
+		//-----------------------------------------------
+		public function _initInstructionString(_data:String)
+		{
+			Cmd.APP_MAIN_CONTAINER.addChild(this);
+			iks.addEventListener(MouseEvent.CLICK, onCloseInstruction);
+			insertDataString(_data);
+			initScroll();
+		}
+
+
+
+
+
+
 		//-----------------------------------------------
 		private function onCloseInstruction(e:MouseEvent):void
 		{
@@ -64,6 +80,16 @@
 		{
 			_scrollBar = new Scrollbar();
 			_scrollBar.init(_content, contentMask, track, slider);
+		}
+
+
+
+
+		private function insertDataString(_data:String):void
+		{
+			_content.mTxt.text = "";
+			_content.mTxt.text = "" + _data;
+			_content.mTxt.height = _content.mTxt.numLines *20;
 		}
 
 

@@ -125,7 +125,7 @@
 		//-----------------------------------------------
 		private function onShowHelp(e:MouseEvent):void
 		{
-			Cmd.getInstructionModule()._initInstruction(Cmd.getScreenModel_().get_helpData());
+			Cmd.getInstructionModule()._initInstructionString(Cmd.getScreenModel_().get_helpData());
 		}
 
 

@@ -15,7 +15,7 @@
 
 
 
-
+	//---------------------------------------------------
 	public class ScreenModel extends Model
 	{
 
@@ -48,6 +48,9 @@
 		//---------------------------------------------------
 		private var posY											:Number = 0;
 
+
+
+		//---------------------------------------------------
 		private var _oneLineDataLength				:Number = 0;
 		private var _numberOfObjects					:Number = 0;
 		private var i													:Number = 0;
@@ -86,8 +89,6 @@
 		//---------------------------------------------------
 		public static var _objIndex						:Number = 0;
 		public static var UPDATE_TEXT					:Boolean = true;
-
-
 
 
 
@@ -235,26 +236,34 @@
 
 
 
-
+			//---------------------------------------------------
 			_screenContainer				       			= new screenContainer();
 			this.addChild(_screenContainer);
 
 
 
-
+			//---------------------------------------------------
 			_screenContainer.y														= super._parser.get_sPosY();
 			_screenContainer.screenContainerBody.width 		= super._parser.get_sWidth();
 			_screenContainer.screenContainerBody.height 	= super._parser.get_sHeight();
 
+
+
+
+			//---------------------------------------------------
 			_screenContainer.maskContainerForText.width 	= super._parser.get_sWidth();
 			_screenContainer.maskContainerForText.height 	= super._parser.get_sHeight();
 
+
+
+			//---------------------------------------------------
 			_screenContainerHeight 												= super._parser.get_sHeight();
 
 
 
 
 
+			//---------------------------------------------------
 			if(super._parser.get_dataDistr() == 1)
 			{
 				distr_singleLine();
