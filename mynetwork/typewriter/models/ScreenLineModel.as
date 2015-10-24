@@ -363,7 +363,6 @@
 		//---------------------------------------------------
 		private function getSpeedCriteriaDescription(_score:Number):String
 		{
-			trace("_score: " + _score);
 			var speedCriteria:Array = [];
 			speedCriteria[0] = [-1, 60, 'żółwia, czeka Cię jeszcze sporo pracy. W tym tempie możesz przegonić tylko ślimaka.'];
 			speedCriteria[1] = [60, 120, 'bardzo wolna, postaraj się zwiększyć tempo. Założę się, że stać Cię na więcej.'];
@@ -381,7 +380,6 @@
 				{
 					splitArray.push(speedCriteria[k][t]);
 				}
-				trace(splitArray[0],splitArray[1])
 
 				if(_score > splitArray[0] && _score < splitArray[1])
 				{
@@ -415,7 +413,6 @@
 				{
 					splitArray.push(correctnessCriteria[k][t]);
 				}
-				trace(splitArray[0],splitArray[1])
 
 				if(_score > splitArray[0] && _score < splitArray[1])
 				{

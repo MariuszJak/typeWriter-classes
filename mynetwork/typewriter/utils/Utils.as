@@ -80,9 +80,9 @@
 
 		//---------------------------------------------------
 		public function rewriteOverlayText (_textField_source:TextField,
-											_textField_replace:TextField,
-											_textfield_appr:TextField,
-											_overlayTxt:String):String
+																				_textField_replace:TextField,
+																				_textfield_appr:TextField,
+																				_overlayTxt:String):String
 		{
 			var _repStr:String = "";
 			for(i = 0; i < _textfield_appr.text.length-1; i ++)
@@ -97,6 +97,104 @@
 				}
 			}
 			return _repStr;
+		}
+
+
+
+
+
+
+		//---------------------------------------------------
+		public function returnRandomizedData(_data:Array, _length:Number = 240):String
+		{
+			return _data.length == 2 ? generateString(_data,_length) : generateWords(_data,_length);
+		}
+
+
+
+
+
+		//---------------------------------------------------
+		private function generateString(patterns:Array,length:Number):String
+		{
+			var v_result:String = '';
+
+	    while (v_result.length < length)
+			{
+	    	var v_isSpace:Boolean = false;
+				v_result += patterns[1].charAt(randomInt(0, patterns[1].length - 1));
+				if (randomInt(0, 9999) % 2 == 0)
+				{
+						v_result += ' ';
+						v_isSpace = true;
+				}
+		    v_result += patterns[0].charAt(randomInt(0, patterns[0].length - 1));
+				if (randomInt(0, 9999) % 2 == 0)
+				{
+					v_result += ' ';
+					v_isSpace = true;
+				}
+				v_result += patterns[1].charAt(randomInt(0, patterns[1].length - 1));
+				if (!v_isSpace)
+				{
+					v_result += ' ';
+				}
+	    	v_result += patterns[1].charAt(randomInt(0, patterns[1].length - 1));
+	    	v_result += patterns[0].charAt(randomInt(0, patterns[0].length - 1));
+				if (randomInt(0, 9999) % 2 == 0)
+				{
+					v_result += ' ';
+				}
+	    	v_result += patterns[1].charAt(randomInt(0, patterns[1].length - 1));
+			}
+			v_result = v_result.substr(0, length);
+
+			if (v_result.charAt(length - 1) == ' ')
+			{
+				v_result = v_result.substr(0, length - 1) + patterns[1].charAt(randomInt(0, patterns[1].length - 1));
+			}
+
+			return v_result;
+		}
+
+
+
+
+
+		//---------------------------------------------------
+		private function generateWords(words:Array,length:Number):String
+		{
+			var v_result:String = '';
+
+	    while (v_result.length < length - 6)
+			{
+				var v_word:String = words[randomInt(0, words.length - 1)];
+				if (v_result.length + v_word.length < length - 2)
+				{
+			    	v_result += v_word + ' ';
+				}
+	    }
+			for (var v_i:Number = words.length - 1; v_i >= 0; --v_i)
+			{
+				if (v_result.length + words[v_i].length == length)
+				{
+						v_result += words[v_i];
+						break;
+				}
+			}
+			if (v_result.length < length)
+			{
+				v_result = (v_result + words[randomInt(0, words.length - 1)]).substr(0, length);
+			}
+			return v_result;
+		}
+
+
+
+		//---------------------------------------------------
+		private function randomInt(min:Number, max:Number):Number
+		{
+				return Math.floor(Math.random() * (max + 1 - min)) + min;
 		}
 
 

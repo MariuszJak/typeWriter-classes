@@ -72,6 +72,7 @@
 		private var objectArr									:Array = [];
 		private var _wordArr									:Array = [];
 		private var _iterateFullNumberArr			:Array = [];
+		private var parsedDataArray						:Array = [];
 
 
 
@@ -159,19 +160,33 @@
 			{
 				parsedData 							= super._parser.get_type_text();
 			}
-			else
+			else if(super._parser.get_dataDistr() == 2)
 			{
 				parsedData 							= this.arrayToString(super._parser.get_lineArray());
 			}
-
+			else
+			{
+				parsedDataArray					= Cmd.getDictionary().getLessonsWords()[super._parser.get_testArrayPath()];
+			}
 			_timer 										= new Timer(1000,9999);
 			_actionTimer							= new Timer(1000,9999);
+
+		//	trace("parsedDataArray: " + parsedDataArray);
 
 			_actionTimer.addEventListener(TimerEvent.TIMER, onTrackUserAction);
 			_timer.addEventListener(TimerEvent.TIMER, onShowTime);
 			//_timer.start();
 
-			distributeData(parsedData);
+			if(super._parser.get_dataDistr() == 1 || super._parser.get_dataDistr() == 2)
+			{
+				distributeData(parsedData);
+			}
+			else
+			{
+				distributeDataArray(parsedDataArray);
+			}
+
+
 			_instructionData 						= super._parser.getInstruction();
 			_helpData 									= super._parser.getHelp();
 			Cmd._PASS_SCORE							= super._parser.get_passScore();
@@ -201,43 +216,80 @@
 
 
 		//---------------------------------------------------
+		private function distributeDataArray(_data:Array):void
+		{
+			configureView(Cmd.getUtils().returnRandomizedData(_data,240));
+			distr_singleLine();
+		}
+
+
+
+
+
+		//---------------------------------------------------
 		private function distributeData(_data:String):void
 		{
-			var _iterate:Number 							= 0;
+			configureView(_data);
 
 
-			_dataLenght 										= _data.length;
-			_oneLineDataLength 							= Cmd.getUtils().calculateLenght(super._parser.get_sWidth(),9.3);
-			_numberOfObjects 								= Math.round(_dataLenght / _oneLineDataLength);
-
-			for(i = 0; i < _numberOfObjects; i ++)
+			//---------------------------------------------------
+			if(super._parser.get_dataDistr() == 1)
 			{
-				_iterateFullNumberArr.push(_oneLineDataLength);
+				distr_singleLine();
+			}
+			else
+			{
+				distr_multileLine();
 			}
 
-			if(_dataLenght % _oneLineDataLength > 0)
-			{
-				_numberOfObjects 							= _numberOfObjects + 1;
-				_iterateFullNumberArr.push(_dataLenght % _oneLineDataLength);
-			}
+		}
 
-			for(i = 0; i < _numberOfObjects; i ++)
+
+
+
+
+		//---------------------------------------------------
+		private function configureView(_data:String = "")
+		{
+			if(_data)
 			{
-				var _inputString:String = "";
-				for(var j:Number = 0; j < Math.round(_iterateFullNumberArr[i]); j ++)
+				var _iterate:Number 							= 0;
+
+
+				_dataLenght 										= _data.length;
+				_oneLineDataLength 							= Cmd.getUtils().calculateLenght(super._parser.get_sWidth(),9.3);
+				_numberOfObjects 								= Math.round(_dataLenght / _oneLineDataLength);
+
+				for(i = 0; i < _numberOfObjects; i ++)
 				{
-					_inputString = _inputString + _data.charAt(_iterate);
-					_iterate ++;
+					_iterateFullNumberArr.push(_oneLineDataLength);
 				}
-				_wordArr.push(_inputString);
+
+				if(_dataLenght % _oneLineDataLength > 0)
+				{
+					_numberOfObjects 							= _numberOfObjects + 1;
+					_iterateFullNumberArr.push(_dataLenght % _oneLineDataLength);
+				}
+
+				for(i = 0; i < _numberOfObjects; i ++)
+				{
+					var _inputString:String = "";
+					for(var j:Number = 0; j < Math.round(_iterateFullNumberArr[i]); j ++)
+					{
+						_inputString = _inputString + _data.charAt(_iterate);
+						_iterate ++;
+					}
+					_wordArr.push(_inputString);
+				}
 			}
+
 
 
 
 
 
 			//---------------------------------------------------
-			_screenContainer				       			= new screenContainer();
+			_screenContainer				       								= new screenContainer();
 			this.addChild(_screenContainer);
 
 
@@ -258,21 +310,6 @@
 
 			//---------------------------------------------------
 			_screenContainerHeight 												= super._parser.get_sHeight();
-
-
-
-
-
-			//---------------------------------------------------
-			if(super._parser.get_dataDistr() == 1)
-			{
-				distr_singleLine();
-			}
-			else
-			{
-				distr_multileLine();
-			}
-
 		}
 
 

@@ -37,6 +37,7 @@
 	import pl.mynetwork.typewriter.utils.Utils;
 	import pl.mynetwork.typewriter.utils.StringUtils;
 	import pl.mynetwork.typewriter.utils.TimeManagement;
+	import pl.mynetwork.typewriter.utils.Dictionary;
 
 
 
@@ -74,6 +75,7 @@
 
 		//-----------------------------------------------
 		private static var _typeParser							:TypewriterXmlParser;
+		private static var _dictionary							:Dictionary;
 		private static var _screenModel							:ScreenModel;
 		private static var _appConroler							:AppControler;
 		private static var _displayDataControler		:DisplayDataControler;
@@ -192,11 +194,25 @@
 			_headerController					= new HeaderController();
 			_headerMC 								= new app_header();
 			_instructionMc						= new instructionModule();
+			_dictionary								= new Dictionary();
 
 			APP_MAIN_CONTAINER 				= new MovieClip();
 			p_stage.addChild(APP_MAIN_CONTAINER);
 			_appConroler 							= new AppControler(p_stage);
 			_appConroler._initApp();
+		}
+
+
+
+
+
+
+		/*////////////////////////////////////////////////////////////////////////////
+		*/
+		//-----------------------------------------------
+		public static function getDictionary():Dictionary
+		{
+			return _dictionary;
 		}
 
 
