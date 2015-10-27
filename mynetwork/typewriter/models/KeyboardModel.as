@@ -102,6 +102,8 @@
 			_set_s_enter();
 			_set_s_del();
 			_setNumpadNumbers();
+
+			Cmd.getKeyboardController().getMetronomModule().setMetronom(metronomMc);
 		}
 
 

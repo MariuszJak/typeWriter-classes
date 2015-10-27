@@ -117,7 +117,7 @@
 		//-----------------------------------------------
 		private function onShowInstruction(e:MouseEvent):void
 		{
-			Cmd.getInstructionModule()._initInstruction(Cmd.getScreenModel_().get_instructionData());
+			Cmd.getInstructionModule()._initInstructionString(Cmd.getScreenModel_().get_instructionData());
 		}
 
 

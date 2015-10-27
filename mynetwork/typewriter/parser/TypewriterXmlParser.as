@@ -47,6 +47,7 @@
 		private var _passScore							:Number = 0;
 		private var _sigleLineLength				:Number = 85;
 		private var _testArrayPath					:Number = -1;
+		private var _charNumber							:Number = 0;
 
 
 
@@ -102,6 +103,7 @@
 			_helpText									= rawXML.type_text.@help;
 			_passScore 								= rawXML.type_text.@passingScore;
 			_testArrayPath						= rawXML.type_text.@testNumber;
+			_charNumber								= rawXML.type_text.@charsNum;
 
 			if(rawXML.type_text.@setBorder == "true")
 			{
@@ -273,6 +275,14 @@
 		public function get_testArrayPath():Number
 		{
 			return _testArrayPath
+		}
+
+
+
+		//---------------------------------------------------
+		public function get_charNumber():Number
+		{
+			return _charNumber
 		}
 
 

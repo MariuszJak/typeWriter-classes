@@ -218,7 +218,7 @@
 		//---------------------------------------------------
 		private function distributeDataArray(_data:Array):void
 		{
-			configureView(Cmd.getUtils().returnRandomizedData(_data,240));
+			configureView(Cmd.getUtils().returnRandomizedData(_data,super._parser.get_charNumber()));
 			distr_singleLine();
 		}
 
