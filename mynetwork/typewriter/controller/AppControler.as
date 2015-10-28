@@ -58,7 +58,7 @@
 				Cmd.getDisplayDataControler().get_displayDataView().updateGrossWPM(0);
 				Cmd.getDisplayDataControler().get_displayDataView().updateTime("00:00");
 
-
+				Cmd.getSoundManager().setupSound();
 			}
 		}
 

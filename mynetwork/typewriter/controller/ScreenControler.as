@@ -89,6 +89,7 @@
 				{
 					if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible)
 					{
+						Cmd.getSoundManager().playSound(3);
 						nextObjectFocus();
 					}
 				}

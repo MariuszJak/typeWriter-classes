@@ -218,7 +218,11 @@
 		//---------------------------------------------------
 		private function distributeDataArray(_data:Array):void
 		{
-			configureView(Cmd.getUtils().returnRandomizedData(_data,super._parser.get_charNumber()));
+			//trace(_data);
+			var stringData:String = Cmd.getUtils().returnRandomizedData(_data,super._parser.get_charNumber());
+			trace("stringData: " + stringData.length);
+			configureView(stringData);
+
 			distr_singleLine();
 		}
 
@@ -258,7 +262,9 @@
 
 				_dataLenght 										= _data.length;
 				_oneLineDataLength 							= Cmd.getUtils().calculateLenght(super._parser.get_sWidth(),9.3);
-				_numberOfObjects 								= Math.round(_dataLenght / _oneLineDataLength);
+				_numberOfObjects 								= Math.floor(_dataLenght / _oneLineDataLength);
+
+				trace(_dataLenght,_oneLineDataLength,_numberOfObjects);
 
 				for(i = 0; i < _numberOfObjects; i ++)
 				{
@@ -338,6 +344,7 @@
 				_objectInLine._setWidth(super._parser.get_sWidth());
 				posY = posY + _objectInLine.height;
 			}
+			
 			stage.focus = objectArr[0].iTxt;
 			Cmd.getAppController()._configureKeyboard(_screenContainerHeight,super._parser.get_sPosY());
 		}

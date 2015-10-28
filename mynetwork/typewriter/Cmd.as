@@ -58,6 +58,14 @@
 
 
 
+
+	//-----------------------------------------------
+	import pl.mynetwork.typewriter.Sound.SoundManager;
+
+
+
+
+
 	//-----------------------------------------------
 	public class Cmd extends MovieClip
 	{
@@ -75,6 +83,7 @@
 
 		//-----------------------------------------------
 		private static var _typeParser							:TypewriterXmlParser;
+		private static var _soundManager						:SoundManager;
 		private static var _dictionary							:Dictionary;
 		private static var _screenModel							:ScreenModel;
 		private static var _appConroler							:AppControler;
@@ -162,8 +171,6 @@
 			gameCommunication.addEventListener(ComEvent.INIT, 		onCommunicationInit);
 			gameCommunication.addEventListener(ComEvent.FAIL, 		onCommunicationFail);
 			gameCommunication.init();
-
-
 		}
 
 
@@ -195,6 +202,7 @@
 			_headerMC 								= new app_header();
 			_instructionMc						= new instructionModule();
 			_dictionary								= new Dictionary();
+			_soundManager							= new SoundManager();
 
 			APP_MAIN_CONTAINER 				= new MovieClip();
 			p_stage.addChild(APP_MAIN_CONTAINER);
@@ -213,6 +221,19 @@
 		public static function getDictionary():Dictionary
 		{
 			return _dictionary;
+		}
+
+
+
+
+
+
+		/*////////////////////////////////////////////////////////////////////////////
+		*/
+		//-----------------------------------------------
+		public static function getSoundManager():SoundManager
+		{
+			return _soundManager;
 		}
 
 

@@ -234,10 +234,14 @@
 
 					Cmd.getKeyboardController().getKeyboardModel().getLetterByName(dTxt.text.charAt(e.target.length));
 
+
+
 					if(dTxt.text.charAt(e.target.length-1) != e.target.text.charAt(e.target.length-1))
 					{
 						_overlayText 						= _overlayText + Cmd.getUtils().renderHtmlText(e.target.text.charAt(e.target.length-1),"_bad");
 						dInTxt.htmlText 				= _overlayText;
+
+						Cmd.getSoundManager().playSound(0);
 
 						Cmd.getScreenModel_().set_errorsInTyping(Cmd.getScreenModel_().get_errorsInTyping()+1);
 
@@ -251,6 +255,8 @@
 						_overlayText 						= _overlayText + Cmd.getUtils().renderHtmlText(e.target.text.charAt(e.target.length-1),"_good");
 						dInTxt.htmlText 				= _overlayText;
 
+						Cmd.getSoundManager().playSound(1);
+
 						_errorMargin 						= get_errorMargin();
 						_dynamicErrorRange 			= get_dynamicErrorRange();
 						_progress 							= get_progress();
@@ -260,7 +266,7 @@
 
 
 
-					if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible == true)
+					if(Cmd.getKeyboardController().getKeyboardModel().get_enter().visible)
 					{
 						Cmd.getScreenControler().nextObjectFocus();
 						if(_y > (_containerHeigth-(e.target.parent.height*2)))
@@ -310,6 +316,7 @@
 		//---------------------------------------------------
 		private function stopTimer()
 		{
+			trace("this._id: " + this._id, "Cmd.getScreenModel_().getObjectArray().length: " + Cmd.getScreenModel_().getObjectArray().length);
 			if(this._id == Cmd.getScreenModel_().getObjectArray().length-1)
 			{
 				Cmd.getInstructionModule()._initInstruction(gatherUserData());
@@ -414,7 +421,7 @@
 					splitArray.push(correctnessCriteria[k][t]);
 				}
 
-				if(_score > splitArray[0] && _score < splitArray[1])
+				if(_score >= splitArray[0] && _score <= splitArray[1])
 				{
 					return splitArray[2];
 				}

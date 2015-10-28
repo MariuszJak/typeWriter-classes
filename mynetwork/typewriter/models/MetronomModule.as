@@ -40,6 +40,10 @@
 
 
 
+		var playedSound:Boolean = false;
+
+
+
 
 		//---------------------------------------------------
 		private static var METRONOM_STATE:Boolean = false;
@@ -132,13 +136,21 @@
 		{
 
 			discreteTickSum = discreteTickSum + descriteSecondTick;
+
 			if(discreteTickSum > tickDelaySpeed)
 			{
 				passedMetronom.tempomatBlock.visible = true;
+				if(!playedSound)
+				{
+					Cmd.getSoundManager().playSound(2);
+					playedSound = true;
+				}
+
 				if(discreteTickSum > tickDelaySpeed + tickDelaySpeed/2)
 				{
 					discreteTickSum = 0;
 					passedMetronom.tempomatBlock.visible = false;
+					playedSound = false;
 				}
 			}
 		}
