@@ -543,10 +543,14 @@
 				}
 			}
 
-			if(_name == "ł" || _name == "ó" || _name == "ż" || _name == "ę" || _name == "ą" || _name == "ś" || _name == "ź" || _name == "ć")
+			if(_name == "ł" || _name == "ó" || _name == "ż" || _name == "ę" || _name == "ą" || _name == "ś" || _name == "ź" || _name == "ć" || _name == "ń")
 			{
 				trace(_name);
 				var searchForLetter:String = "";
+				if(_name == "ń")
+				{
+					searchForLetter = "n";
+				}
 				if(_name == "ł")
 				{
 					searchForLetter = "l";
@@ -612,9 +616,13 @@
 
 
 
-			if(_name == "Ł" || _name == "Ó" || _name == "Ż" || _name == "Ę" || _name == "Ą" || _name == "Ś" || _name == "Ź" || _name == "Ć")
+			if(_name == "Ł" || _name == "Ó" || _name == "Ż" || _name == "Ę" || _name == "Ą" || _name == "Ś" || _name == "Ź" || _name == "Ć" || _name == "Ć")
 			{
 				var searchForBigLetter:String = "";
+				if(_name == "Ć")
+				{
+					searchForBigLetter = "C";
+				}
 				if(_name == "Ł")
 				{
 					searchForBigLetter = "L";

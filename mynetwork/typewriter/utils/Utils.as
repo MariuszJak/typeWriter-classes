@@ -1,13 +1,26 @@
 ﻿package pl.mynetwork.typewriter.utils
 {
+
+
+
+
+	//---------------------------------------------------
 	import flash.text.TextField;
 
+
+
+
+
+	//---------------------------------------------------
 	public class Utils
 	{
 
 
+
+
 		//---------------------------------------------------
 		private var i									:Number = 0;
+
 
 
 
@@ -47,17 +60,29 @@
 			//trace(_text)
 			if(_state == "_good")
 			{
-				outputString = '<font color="#0000ff">' + _text + '</font>'
-
+				if(_text == "<")
+				{
+					outputString = '<font color="#ff0000">' + "&lt;" + '</font>';
+				}
+				else if(_text != "<")
+				{
+					outputString = '<font color="#0000ff">' + _text + '</font>'
+				}
 			}
 			if(_state == "_bad")
 			{
+				trace("_text: " + _text);
+				if(_text == "<")
+				{
+					outputString = '<font color="#ff0000">' + "&lt;" + '</font>';
+				}
 				if(_text == _spaceBtn)
 				{
 					outputString = '<font color="#ff0000">' + "_" + '</font>'
 				}
-				else
+				else if(_text != _spaceBtn && _text != "<")
 				{
+					trace("else!")
 					outputString = '<font color="#ff0000">' + _text + '</font>'
 				}
 			}

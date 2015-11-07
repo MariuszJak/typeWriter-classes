@@ -59,6 +59,7 @@
 				Cmd.getDisplayDataControler().get_displayDataView().updateTime("00:00");
 
 				Cmd.getSoundManager().setupSound();
+
 			}
 		}
 
@@ -72,7 +73,10 @@
 			Cmd.getKeyboardController().getKeyboardModel().getLetterByName(Cmd.getScreenModel_().getObjectArray()[0].dTxt.text.charAt(0));
 
 			Cmd.getAppHeaderController()._initHeader();
+			
 		}
+
+
 
 	}
 }

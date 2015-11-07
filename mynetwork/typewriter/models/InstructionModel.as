@@ -53,11 +53,11 @@
 
 
 		//-----------------------------------------------
-		public function _initInstructionString(_data:String)
+		public function _initInstructionString(_data:String,_title:String)
 		{
 			Cmd.APP_MAIN_CONTAINER.addChild(this);
 			iks.addEventListener(MouseEvent.CLICK, onCloseInstruction);
-			insertDataString(_data);
+			insertDataString(_data,_title);
 			initScroll();
 		}
 
@@ -69,6 +69,7 @@
 		//-----------------------------------------------
 		private function onCloseInstruction(e:MouseEvent):void
 		{
+			Cmd.getDisplayDataControler().hideAllHighlights();
 			Cmd.APP_MAIN_CONTAINER.removeChild(this);
 		}
 
@@ -85,10 +86,11 @@
 
 
 
-		private function insertDataString(_data:String):void
+		private function insertDataString(_data:String,_title:String):void
 		{
 			_content.mTxt.text = "";
-			_content.mTxt.text = "" + _data;
+			_content.mTxt.htmlText = "" + _data;
+			contentTitleTF.text = "" + _title;
 			_content.mTxt.height = _content.mTxt.numLines *20;
 		}
 

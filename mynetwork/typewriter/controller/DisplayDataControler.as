@@ -7,6 +7,11 @@
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 
+
+
+
+
+	//-----------------------------------------------
 	public class DisplayDataControler extends Controler
 	{
 
@@ -36,8 +41,9 @@
 
 
 
-
+		//-----------------------------------------------
 		private var _elementsArray:Array;
+		private var _btnsArr:Array;
 
 
 
@@ -106,18 +112,72 @@
 		//-----------------------------------------------
 		private function setUIButtons()
 		{
+			_btnsArr = [];
+			for(var i:Number = 0; _displayDataContainer["btnL_" + i] != undefined; i++)
+			{
+				_btnsArr.push(_displayDataContainer["btnL_" + i]);
+				_btnsArr[i].visible = false;
+			}
+			_displayDataContainer.btnPause.visible = false;
+			_displayDataContainer.btnClosing.visible = false;
+
 			_displayDataContainer.btn_0.addEventListener(MouseEvent.CLICK, onShowKeyboardFingers);
 			_displayDataContainer.btn_1.addEventListener(MouseEvent.CLICK, onShowInstruction);
 			_displayDataContainer.btn_2.addEventListener(MouseEvent.CLICK, onShowHelp);
 			_displayDataContainer.btn_3.addEventListener(MouseEvent.CLICK, onClick);
+			_displayDataContainer.btn_4.addEventListener(MouseEvent.CLICK, onExitLesson);
 		}
+
+
+
+
+		//-----------------------------------------------
+		public function getInstructionScreen()
+		{
+			enableInstructionScreen();
+		}
+
+
+
+
+		private function onExitLesson(e:MouseEvent):void
+		{
+			_btnsArr[3].visible = true;
+			_displayDataContainer.btn_4.visible = false;
+			_displayDataContainer.btnClosing.visible = true;
+		}
+
+
 
 
 
 		//-----------------------------------------------
 		private function onShowInstruction(e:MouseEvent):void
 		{
-			Cmd.getInstructionModule()._initInstructionString(Cmd.getScreenModel_().get_instructionData());
+				_btnsArr[0].visible = true;
+				enableInstructionScreen();
+		}
+
+
+
+		//-----------------------------------------------
+		public function hideAllHighlights()
+		{
+			for(var i:Number = 0; i < _btnsArr.length; i ++)
+			{
+					_btnsArr[i].visible = false;
+			}
+		}
+
+
+
+
+
+
+		//-----------------------------------------------
+		private function enableInstructionScreen()
+		{
+			Cmd.getInstructionModule()._initInstructionString(Cmd.getScreenModel_().get_instructionData(),Cmd.getScreenModel_().get_instructionTitle());
 		}
 
 
@@ -125,7 +185,8 @@
 		//-----------------------------------------------
 		private function onShowHelp(e:MouseEvent):void
 		{
-			Cmd.getInstructionModule()._initInstructionString(Cmd.getScreenModel_().get_helpData());
+			_btnsArr[1].visible = true;
+			Cmd.getInstructionModule()._initInstructionString(Cmd.getScreenModel_().get_helpData(),Cmd.getScreenModel_().get_helpTitle());
 		}
 
 
@@ -134,6 +195,14 @@
 		//-----------------------------------------------
 		private function onShowKeyboardFingers(e:MouseEvent):void
 		{
+			if(!_btnsArr[4].visible)
+			{
+					_btnsArr[4].visible = true;
+			}
+			else
+			{
+					_btnsArr[4].visible = false;
+			}
 			Cmd.getKeyboardController().getKeyboardModel().toggleKeyboardFingers();
 		}
 
@@ -143,9 +212,51 @@
 		//-----------------------------------------------
 		private function onClick(e:MouseEvent):void
 		{
-			trace("click")
+			if(!_btnsArr[2].visible)
+			{
+				_btnsArr[2].visible = true;
+				_displayDataContainer.btn_3.alpha = 1;
+				_displayDataContainer.btnPause.visible = false;
+				Cmd.getScreenModel_()._stopTimer();
+			}
+			else
+			{
+				_btnsArr[2].visible = false;
+				_displayDataContainer.btn_3.alpha = 0;
+				_displayDataContainer.btnPause.visible = true;
+
+
+				Cmd.getScreenModel_()._startTimer();
+			}
 		}
 
+
+		//-----------------------------------------------
+		public function showButton(_buttonNr:Number, _state:String):void
+		{
+			if(_buttonNr == 2)
+			{
+				if(_state == "show")
+				{
+					_displayDataContainer.btn_3.alpha = 1;
+					_displayDataContainer.btnPause.visible = false;
+				}
+				else
+				{
+
+					_displayDataContainer.btn_3.alpha = 0;
+					_displayDataContainer.btnPause.visible = true;
+				}
+			}
+			if(_state == "show")
+			{
+				_btnsArr[_buttonNr].visible = true;
+			}
+			else
+			{
+				_btnsArr[_buttonNr].visible = false;
+			}
+		}
 
 
 
@@ -166,6 +277,14 @@
 				_elementsArray.push(_displayData);
 			}
 			_displayDataView._displayArray(_elementsArray);
+		}
+
+
+
+		//-----------------------------------------------
+		public function get_btnsArr():Array
+		{
+			return _btnsArr;
 		}
 
 

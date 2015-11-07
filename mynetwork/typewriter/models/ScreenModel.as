@@ -12,6 +12,7 @@
 	import flash.display.Stage;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
+	import pl.mynetwork.typewriter.parser.HelpParser;
 
 
 
@@ -80,7 +81,9 @@
 
 		//---------------------------------------------------
 		private var _instructionData					:String;
+		private var _instructionTitle					:String;
 		private var _helpData									:String;
+		private var _helpTitle								:String;
 
 
 
@@ -116,6 +119,10 @@
 		private function _init(event:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, _init);
+
+			super._helpParser = new HelpParser();
+			super._helpParser.init("xml/help/helpFile.xml");
+			super._helpParser.addEventListener(Event.COMPLETE, onLoadHelpData);
 
 			super._parser = new TypewriterXmlParser();
 			super._parser.init(Cmd.XML_PATH);
@@ -154,6 +161,15 @@
 
 
 		//---------------------------------------------------
+		private function onLoadHelpData(e:Event):void
+		{
+			_helpData = super._helpParser.getHelpData();
+			_helpTitle = super._helpParser.getHelpTitle();
+		}
+
+
+
+		//---------------------------------------------------
 		private function onLoadParsedXML(e:Event):void
 		{
 			if(super._parser.get_dataDistr() == 1)
@@ -186,12 +202,14 @@
 				distributeDataArray(parsedDataArray);
 			}
 
-
-			_instructionData 						= super._parser.getInstruction();
-			_helpData 									= super._parser.getHelp();
+			_instructionTitle 					= super._parser.get_instructionTitle();
+			_instructionData 						= super._parser.get_instructionMain();
 			Cmd._PASS_SCORE							= super._parser.get_passScore();
+			Cmd._PASS_SPEED							= super._parser.get_speed();
 
 			Cmd.getAppHeaderController().updateData(super._parser.getTitle(), super._parser.getSmallTitle());
+			Cmd.getDisplayDataControler().getInstructionScreen();
+			Cmd.getDisplayDataControler().showButton(2, "show");
 		}
 
 
@@ -344,7 +362,7 @@
 				_objectInLine._setWidth(super._parser.get_sWidth());
 				posY = posY + _objectInLine.height;
 			}
-			
+
 			stage.focus = objectArr[0].iTxt;
 			Cmd.getAppController()._configureKeyboard(_screenContainerHeight,super._parser.get_sPosY());
 		}
@@ -397,13 +415,22 @@
 		//---------------------------------------------------
 		private function onTrackUserAction(e:TimerEvent):void
 		{
-			if(_actionTimer.currentCount > 5)
+			if(_actionTimer.currentCount > 3)
 			{
+				for(var k in Cmd.getDisplayDataControler().get_btnsArr().length)
+				{
+					Cmd.getDisplayDataControler().get_btnsArr()[k].visible = false;
+				}
+				Cmd.getDisplayDataControler().showButton(2,"show");
 				_stopTimer();
 				_actionTimer.reset();
 				_actionTimer.stop();
 			}
 		}
+
+
+
+
 
 
 
@@ -435,6 +462,16 @@
 
 
 		//---------------------------------------------------
+		public function get_instructionTitle():String
+		{
+			return _instructionTitle;
+		}
+
+
+
+
+
+		//---------------------------------------------------
 		public function get_instructionData():String
 		{
 			return _instructionData;
@@ -447,6 +484,15 @@
 		public function get_helpData():String
 		{
 			return _helpData;
+		}
+
+
+
+
+		//---------------------------------------------------
+		public function get_helpTitle():String
+		{
+			return _helpTitle;
 		}
 
 

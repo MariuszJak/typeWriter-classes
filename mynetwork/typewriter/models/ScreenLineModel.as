@@ -234,6 +234,8 @@
 
 					Cmd.getKeyboardController().getKeyboardModel().getLetterByName(dTxt.text.charAt(e.target.length));
 
+					Cmd.getDisplayDataControler().showButton(2,"hide");
+
 
 
 					if(dTxt.text.charAt(e.target.length-1) != e.target.text.charAt(e.target.length-1))
@@ -316,7 +318,7 @@
 		//---------------------------------------------------
 		private function stopTimer()
 		{
-			trace("this._id: " + this._id, "Cmd.getScreenModel_().getObjectArray().length: " + Cmd.getScreenModel_().getObjectArray().length);
+			//trace("this._id: " + this._id, "Cmd.getScreenModel_().getObjectArray().length: " + Cmd.getScreenModel_().getObjectArray().length);
 			if(this._id == Cmd.getScreenModel_().getObjectArray().length-1)
 			{
 				Cmd.getInstructionModule()._initInstruction(gatherUserData());
@@ -324,21 +326,35 @@
 				Cmd.getScreenControler()._removeController();
 				Cmd.TEXT_FINISHED = true;
 
-
-
 				if((100-Math.round(get_dynamicErrorRange())) > Cmd._PASS_SCORE)
 				{
-					Cmd.get_tracker().setScore((100-Math.round(get_dynamicErrorRange())));
-					Cmd.get_tracker().setStatus("P");
-					Cmd.get_tracker().putParams();
+					if(_speedTyping > Cmd._PASS_SPEED)
+					{
+						Cmd.get_tracker().setScore((100-Math.round(get_dynamicErrorRange())));
+						Cmd.get_tracker().setStatus("P");
+						Cmd.get_tracker().putParams();
+					}
+					else
+					{
+						lessonFail();
+					}
 				}
 				else
 				{
-					Cmd.get_tracker().setScore((100-Math.round(get_dynamicErrorRange())));
-					Cmd.get_tracker().setStatus("F");
-					Cmd.get_tracker().putParams();
+					lessonFail();
 				}
 			}
+		}
+
+
+
+		//---------------------------------------------------
+		private function lessonFail()
+		{
+			trace("lessonFailed");
+			Cmd.get_tracker().setScore((100-Math.round(get_dynamicErrorRange())));
+			Cmd.get_tracker().setStatus("F");
+			Cmd.get_tracker().putParams();
 		}
 
 
@@ -388,7 +404,7 @@
 					splitArray.push(speedCriteria[k][t]);
 				}
 
-				if(_score > splitArray[0] && _score < splitArray[1])
+				if(_score >= splitArray[0] && _score <= splitArray[1])
 				{
 					return splitArray[2];
 				}

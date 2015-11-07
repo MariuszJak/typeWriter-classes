@@ -22,6 +22,7 @@
 
 	//-----------------------------------------------
 	import pl.mynetwork.typewriter.parser.TypewriterXmlParser;
+	import pl.mynetwork.typewriter.parser.HelpParser;
 
 
 
@@ -83,6 +84,7 @@
 
 		//-----------------------------------------------
 		private static var _typeParser							:TypewriterXmlParser;
+		private static var _helpParser							:HelpParser;
 		private static var _soundManager						:SoundManager;
 		private static var _dictionary							:Dictionary;
 		private static var _screenModel							:ScreenModel;
@@ -121,6 +123,7 @@
 
 		//-----------------------------------------------
 		public static var _PASS_SCORE									:Number = 0;
+		public static var _PASS_SPEED									:Number = 0;
 
 
 
@@ -192,6 +195,7 @@
 		{
 			_screenModel_ 						= new screenModule();
 			_utils 										= new Utils;
+			_helpParser								= new HelpParser();
 			_typeParser 							= new TypewriterXmlParser();
 			_screenModel 							= new ScreenModel();
 			_screenControler 					= new ScreenControler();
@@ -363,6 +367,19 @@
 			return _typeParser;
 		}
 
+
+
+
+
+		//-----------------------------------------------
+		public static function getHelpParser():HelpParser
+		{
+			return _helpParser;
+		}
+
+
+
+		_helpParser
 
 
 

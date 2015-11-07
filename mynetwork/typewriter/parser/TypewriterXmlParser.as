@@ -25,6 +25,8 @@
 		private var _instruction							:String;
 		private var _helpText									:String;
 		private var _movedStr									:String = "";
+		private var _instructionMain					:String = "";
+		private var _instructionTitle					:String = "";
 
 
 
@@ -48,6 +50,7 @@
 		private var _sigleLineLength				:Number = 85;
 		private var _testArrayPath					:Number = -1;
 		private var _charNumber							:Number = 0;
+		private var _speed         					:Number = 0;
 
 
 
@@ -104,6 +107,11 @@
 			_passScore 								= rawXML.type_text.@passingScore;
 			_testArrayPath						= rawXML.type_text.@testNumber;
 			_charNumber								= rawXML.type_text.@charsNum;
+			_speed										= rawXML.type_text.@speed;
+
+			_instructionTitle					= rawXML.type_text.@instructionTitle;
+			_instructionMain 					= rawXML.instructionMain.children();
+			trace("_instructionTitle: ", _instructionTitle);
 
 			if(rawXML.type_text.@setBorder == "true")
 			{
@@ -190,7 +198,7 @@
 
 
 
-
+		//---------------------------------------------------
 		private function checkIfLastLetterIsSingle(_str:String):String
 		{
 			if(_str.charAt(_str.length-2) == " ")
@@ -209,6 +217,24 @@
 				return _movedStr;
 			}
 			return _movedStr;
+		}
+
+
+
+
+		//---------------------------------------------------
+		public function get_instructionTitle():String
+		{
+			return _instructionTitle;
+		}
+
+
+
+
+		//---------------------------------------------------
+		public function get_instructionMain():String
+		{
+			return _instructionMain;
 		}
 
 
@@ -275,6 +301,15 @@
 		public function get_testArrayPath():Number
 		{
 			return _testArrayPath
+		}
+
+
+
+
+		//---------------------------------------------------
+		public function get_speed():Number
+		{
+			return _speed;
 		}
 
 
